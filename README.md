@@ -14,4 +14,4 @@ After cloning the repository, you can run the current build locally by running:
 cd restaurant-tinder-app
 npm start
 ```
-The source files will be in `restaurant-tinder-app/src`.
+The source files will be in [`restaurant-tinder-app/src`](https://github.com/rudyorre/restaurant-tinder/tree/main/restaurant-tinder-app/src).
