@@ -9,7 +9,7 @@ A restaurant matching web application that helps users decide which restaurant t
 - [***Beautiful Eggert Chrome Extension***](https://chrome.google.com/webstore/detail/beautiful-eggert/gkhkfkioobdgdboaejfjgbefmedmeijh)
 
 ## Getting Started:
-After cloning the repository, you can run the current pre-production build locally running:
+After cloning the repository, you can run the current build locally by running:
 ```bash
 cd restaurant-tinder-app
 npm start
