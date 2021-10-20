@@ -7,3 +7,11 @@ A restaurant matching web application that helps users decide which restaurant t
 - [Facebook Messenger](https://www.facebook.com/messages/)
 - [Project Spec Sheet and Grading](https://web.cs.ucla.edu/classes/fall21/cs35L/project.html)
 - [***Beautiful Eggert Chrome Extension***](https://chrome.google.com/webstore/detail/beautiful-eggert/gkhkfkioobdgdboaejfjgbefmedmeijh)
+
+## Getting Started:
+After cloning the repository, you can run the current pre-production build locally running:
+```bash
+cd restaurant-tinder-app
+npm start
+```
+The source files will be in `restaurant-tinder-app/src`.
