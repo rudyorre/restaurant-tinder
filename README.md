@@ -11,7 +11,8 @@ A restaurant matching web application that helps users decide which restaurant t
 ## Getting Started:
 After cloning the repository, you can run the current build locally by running:
 ```bash
-cd restaurant-tinder-app
+cd restaurant-tinder-app/src
+npm install
 npm start
 ```
 The source files will be in [`restaurant-tinder-app/src`](https://github.com/rudyorre/restaurant-tinder/tree/main/restaurant-tinder-app/src).
