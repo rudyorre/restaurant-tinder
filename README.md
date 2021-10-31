@@ -28,3 +28,4 @@ npm install
 npm start
 ```
 The source files will be in [`restaurant-tinder-app/src`](https://github.com/rudyorre/restaurant-tinder/tree/main/restaurant-tinder-app/src).
+**Make sure the frontend and backend servers are running on different ports**
