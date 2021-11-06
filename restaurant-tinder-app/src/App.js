@@ -3,7 +3,7 @@ import './App.css';
 
 function App() {
   // Sample fetch from the backend API
-  fetch("http://localhost:3000/restaurants")
+  fetch("http://localhost:3001/restaurants")
     .then((res) => res.json())
     .then((json) => {
         console.log(json);
