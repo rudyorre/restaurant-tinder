@@ -105,3 +105,6 @@ async function deleteDisliked(client, username, arrOfDisliked) {
         .deleteMany({ email: username, "Dislikes": { $in: arrOfDisliked } });
     console.log(`${result.deletedCount} document(s) was/were deleted.`);
 }
+
+module.exports = {createUser, createLiked, createDisliked, createFilter, findDisliked, findLiked,
+    findFilter, findUser, checkUser, updatePassword, deleteLiked, deleteDisliked};
