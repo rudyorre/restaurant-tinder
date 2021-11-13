@@ -12,12 +12,12 @@ import Filter from './pages/filter.js';
 
 function App() {
   // Sample fetch from the backend API
-  fetch("http://localhost:3001/restaurants")
-    .then((res) => res.json())
-    .then((json) => {
-        console.log(json);
-        document.getElementById("test").innerHTML = json;
-  })
+  // fetch("http://localhost:3001/restaurants")
+  //   .then((res) => res.json())
+  //   .then((json) => {
+  //       console.log(json);
+  //       document.getElementById("test").innerHTML = json;
+  // })
 
 
   return (
