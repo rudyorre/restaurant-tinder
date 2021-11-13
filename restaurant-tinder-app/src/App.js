@@ -8,6 +8,7 @@ import About from './pages/about';
 import Contact from './pages/contact.js';
 import SignUp from './pages/signup.js';
 import SignIn from './pages/signin.js';
+import Filter from './pages/filter.js';
 
 function App() {
   // Sample fetch from the backend API
@@ -28,6 +29,7 @@ function App() {
         <Route path="/contact" element={<Contact/>} /><Route/>
         <Route path="/signin" element={<SignIn/>} /><Route/>
         <Route path="/sign-up" element={<SignUp/>} /><Route/>
+        <Route path="/filter" element={<Filter />} /><Route/>
       </Routes>
     </Router>
   );

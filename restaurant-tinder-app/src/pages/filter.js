@@ -1,11 +1,12 @@
 import React from 'react'
 
-class SignIn extends React.Component {
+class Filter extends React.Component {
     constructor(props) {
         super(props);
         this.state = {
-            username: '',
-            password: '',
+            term: '',
+            category: '',
+            price: '',
         };
     
         this.handleChange = this.handleChange.bind(this);
@@ -14,6 +15,7 @@ class SignIn extends React.Component {
 
     handleChange(event) {
         let key = event.target.name;
+        // this.setState({key: event.target.value});
         this.setState({
             [key]: event.target.value
         });
@@ -38,21 +40,29 @@ class SignIn extends React.Component {
             >
                 <form onSubmit={this.handleSubmit}>
                     <label>
-                        Username:
+                        Term:
                         <input
                             type="text"
-                            name="username"
+                            name="term"
                             onChange={this.handleChange}
                         />
                     </label>
                     <label>
-                        Password:
+                        Category:
                         <input
-                            type="password"
-                            name="password"
+                            type="text"
+                            name="category"
                             onChange={this.handleChange}
                         />
-                    </label>   
+                    </label>        
+                    <label>
+                        Price:
+                        <input
+                            type="text"
+                            name="price"
+                            onChange={this.handleChange}
+                        />
+                    </label>
 
                     <input type="submit" value="Submit" />
                 </form>
@@ -61,4 +71,4 @@ class SignIn extends React.Component {
     }
 }
 
-export default SignIn;
+export default Filter;
