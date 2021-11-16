@@ -10,13 +10,25 @@ import {
     NavBtnLink,
 } from "./NavbarElements";
 
+import app_logo from '../../images/app_logo.png';
+
 const Navbar = () => {
     return (
         <>
            <Nav>
-            <NavLogo to="/">
-                Logo
+           <NavLogo to="/">
+                    <img 
+                        src={app_logo} 
+                        alt = "logo"
+                        width = "60px"
+                        border_radius = "30px"
+                        padding = "100px"
+                        />{''}
+                Scramble!
             </NavLogo>
+
+        
+
             <Bars />
 
             <NavMenu>
@@ -26,8 +38,8 @@ const Navbar = () => {
                 <NavLink to="/about" activestyle='true'>
                     About
                 </NavLink>
-                <NavLink to="/contact" activestyle='true'>
-                    Contact
+                <NavLink to="/Profile" activestyle='true'>
+                    Profile
                 </NavLink>
                 <NavLink to="/signin" activestyle='true'>
                     Sign In

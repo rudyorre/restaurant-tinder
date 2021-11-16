@@ -5,7 +5,7 @@ import Navbar from "./components/Navbar";
 import { BrowserRouter as Router, Routes, Route } from "react-router-dom";
 import Home from './pages';
 import About from './pages/about';
-import Contact from './pages/contact.js';
+import Profile from './pages/profile.js';
 import SignUp from './pages/signup.js';
 import SignIn from './pages/signin.js';
 import Filter from './pages/filter.js';
@@ -27,7 +27,7 @@ function App() {
       <Routes>
         <Route path="/" exact element={<Home />} /><Route/>
         <Route path="/about" element={<About/>} /><Route/>
-        <Route path="/contact" element={<Contact/>} /><Route/>
+        <Route path="/profile" element={<Profile/>} /><Route/>
         <Route path="/signin" element={<SignIn/>} /><Route/>
         <Route path="/sign-up" element={<SignUp/>} /><Route/>
         <Route path="/filter" element={<Filter />} /><Route/>
