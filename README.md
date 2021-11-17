@@ -30,6 +30,8 @@ npm install
 npm install react-router-dom
 npm install --save styled components
 npm install react-icons --save
+npm install react-tinder-card --save
+npm install react-rating-stars-component --save
 npm start
 ```
 The source files will be in [`restaurant-tinder-app/src`](https://github.com/rudyorre/restaurant-tinder/tree/main/restaurant-tinder-app/src).  
