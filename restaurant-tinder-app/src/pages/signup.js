@@ -1,4 +1,5 @@
 import React from 'react'
+import axios from 'axios'
 
 class SignUp extends React.Component {
     constructor(props) {
@@ -22,6 +23,13 @@ class SignUp extends React.Component {
 
     handleSubmit(event) {
         var jsonString = JSON.stringify(this.state);
+
+        var userinfo = this.state;
+        
+        axios
+        .post("http://localhost:3001/record/User", userinfo)
+        .then((res) => console.log(res.data));
+
         alert(jsonString);
         event.preventDefault();
     }

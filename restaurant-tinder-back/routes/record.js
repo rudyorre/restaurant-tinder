@@ -11,13 +11,13 @@ const dbo = require("../db/conn");
 
 // This section will help you create a new record for the User.
 // CHANGE BACK TO POST FROM GET
-recordRoutes.route("/record/User").get(function (req, response) {
+recordRoutes.route("/record/User").post(function (req, response) {
     
     let db_connect = dbo.getDb();
     let myobj = {
-      //username: req.body.username,
-      //password: req.body.password,
-      username: "TimServer",
+      username: req.body.username,
+      password: req.body.password,
+      
     };
     db_connect.collection("UserInfo").insertOne(myobj, function (err, res) {
       if (err) throw err;
