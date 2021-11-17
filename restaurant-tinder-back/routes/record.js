@@ -108,7 +108,7 @@ recordRoutes.route("/find/UserInfo/:username").get(function (req, res) {
     let myquery = { username: req.params.username };
     db_connect
         .collection("UserInfo")
-        .findOne(myquery, function (err, result) {
+        .find(myquery).toArray(function (err, result) {
           if (err) throw err;
           res.json(result);
         });

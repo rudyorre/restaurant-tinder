@@ -25,13 +25,32 @@ class SignUp extends React.Component {
         var jsonString = JSON.stringify(this.state);
 
         var userinfo = this.state;
-        
-        axios
-        .post("http://localhost:3001/record/User", userinfo)
-        .then((res) => console.log(res.data));
+
+        //get all queries that match username
+        let checkUser = function(username){
+            return axios.get("http://localhost:3001/find/UserInfo/" + username)
+            .then(response => {return response.data})
+        };
+
+        let users = checkUser(this.state.username);
+        users.then(function(result){
+            //output for debugging
+            console.log(result)
+            //no user exists so add to DB
+            if (result === undefined || result.length == 0){
+                axios
+                .post("http://localhost:3001/record/User", userinfo)
+                .then((res) => console.log(res.data));
+            }
+            else{
+                //user already exists
+            }
+
+        })
 
         alert(jsonString);
         event.preventDefault();
+        
     }
 
     render() {
