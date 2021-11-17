@@ -31,7 +31,7 @@ recordRoutes.route("/record/Liked").post(function (req, response) {
     let db_connect = dbo.getDb();
     let myobj = {
       username: req.body.username,
-      password: req.body.password,
+      Liked: req.body.Liked,
     };
     db_connect.collection("Liked").insertOne(myobj, function (err, res) {
       if (err) throw err;
@@ -44,7 +44,7 @@ recordRoutes.route("/record/Disliked").post(function (req, response) {
     let db_connect = dbo.getDb();
     let myobj = {
       username: req.body.username,
-      password: req.body.password,
+      Disliked: req.body.Disliked,
     };
     db_connect.collection("Disliked").insertOne(myobj, function (err, res) {
       if (err) throw err;
@@ -57,7 +57,9 @@ recordRoutes.route("/record/Filter").post(function (req, response) {
     let db_connect = dbo.getDb();
     let myobj = {
       username: req.body.username,
-      password: req.body.password,
+      term: req.body.term,
+      category: req.body.category,
+      price: req.body.price,
     };
     db_connect.collection("Filter").insertOne(myobj, function (err, res) {
       if (err) throw err;
@@ -72,7 +74,7 @@ recordRoutes.route("/find/Liked/:username").get(function (req, res) {
   let myquery = { username: req.params.username };
   db_connect
       .collection("Liked")
-      .find(myquery, function (err, result) {
+      .find(myquery).toArray(function (err, result) {
         if (err) throw err;
         res.json(result);
       });
@@ -84,7 +86,7 @@ recordRoutes.route("/find/Disliked/:username").get(function (req, res) {
     let myquery = { username: req.params.username };
     db_connect
         .collection("Disliked")
-        .find(myquery, function (err, result) {
+        .find(myquery).toArray(function (err, result) {
           if (err) throw err;
           res.json(result);
         });
@@ -96,14 +98,14 @@ recordRoutes.route("/find/Filters/:username").get(function (req, res) {
     let myquery = { username: req.params.username };
     db_connect
         .collection("Filter")
-        .find(myquery, function (err, result) {
+        .find(myquery).toArray(function (err, result) {
           if (err) throw err;
           res.json(result);
         });
   });
 
-// This section will help you find UserInfo 
-recordRoutes.route("/find/UserInfo/:username").get(function (req, res) {
+// This section will help you check if user exists
+recordRoutes.route("/find/User/:username").get(function (req, res) {
     let db_connect = dbo.getDb();
     let myquery = { username: req.params.username };
     db_connect
@@ -113,6 +115,21 @@ recordRoutes.route("/find/UserInfo/:username").get(function (req, res) {
           res.json(result);
         });
   });
+
+// This section will help you check if username and password is valid
+recordRoutes.route("/find/UserInfo/:username/:password").get(function (req, res) {
+  let db_connect = dbo.getDb();
+  let myquery = { 
+    username: req.params.username,
+    password: req.params.password, 
+  };
+  db_connect
+      .collection("UserInfo")
+      .find(myquery).toArray(function (err, result) {
+        if (err) throw err;
+        res.json(result);
+      });
+});
 
 // This section will help you delete a record of User
 recordRoutes.route("/delete/user/:username").delete((req, response) => {

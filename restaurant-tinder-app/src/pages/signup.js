@@ -28,7 +28,7 @@ class SignUp extends React.Component {
 
         //get all queries that match username
         let checkUser = function(username){
-            return axios.get("http://localhost:3001/find/UserInfo/" + username)
+            return axios.get("http://localhost:3001/find/User/" + username)
             .then(response => {return response.data})
         };
 
