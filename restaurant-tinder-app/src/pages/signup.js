@@ -21,41 +21,66 @@ class SignUp extends React.Component {
     }
 
     handleSubmit(event) {
-        var jsonString = JSON.stringify(this.state);
-        alert(jsonString);
-        event.preventDefault();
+        let username = this.state.username;
+        let password = this.state.password;
+        let messages = [];
+        const errorElement = document.getElementById('error');
+
+        // username validation
+        if (username === '' || username == null) {
+            messages.push('username is required');
+        }
+        
+        // password validation
+        if (password === '' || password == null) {
+            messages.push('password is required');
+        } else if (password.length > 4) {
+            messages.push('password must be between 0 and 4 characters');
+        }
+
+        if (messages.length > 0) {
+            event.preventDefault();
+            errorElement.innerText = messages.join(', ');
+            alert(messages.join(', '));
+        } else {
+            var jsonString = JSON.stringify(this.state);
+            alert(jsonString);
+            event.preventDefault();
+        }
     }
 
     render() {
         return (
-            <div
-                style={{
-                    display: 'flex',
-                    justifyContent: 'center',
-                    alignItems: 'center',
-                    height: '100vh'
-                }}
-            >
-                <form onSubmit={this.handleSubmit}>
-                    <label>
-                        Username:
-                        <input
-                            type="text"
-                            name="username"
-                            onChange={this.handleChange}
-                        />
-                    </label>
-                    <label>
-                        Password:
-                        <input
-                            type="password"
-                            name="password"
-                            onChange={this.handleChange}
-                        />
-                    </label>   
-
-                    <input type="submit" value="Submit" />
-                </form>
+            <div>
+                <div
+                    style={{
+                        display: 'flex',
+                        justifyContent: 'center',
+                        alignItems: 'center',
+                        height: '100vh',
+                    }}
+                >
+                    <form onSubmit={this.handleSubmit}>
+                        <label>
+                            Username:
+                            <input
+                                type="text"
+                                name="username"
+                                onChange={this.handleChange}
+                            />
+                        </label>
+                        <label>
+                            Password:
+                            <input
+                                type="password"
+                                name="password"
+                                onChange={this.handleChange}
+                            />
+                        </label>   
+                        <input type="submit" value="Submit" />
+                    </form>
+                    <div id='error'></div>
+                </div>
             </div>
         );
     }
