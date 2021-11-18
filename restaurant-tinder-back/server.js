@@ -7,7 +7,8 @@ const port = 3001;
 
 require('dotenv').config();
 const yelp = require('yelp-fusion');
-const key = process.env.REACT_APP_API_KEY;
+//const key = process.env.REACT_APP_API_KEY;
+const key = "46JMdA1bBnupd9ws5aR8i-7LmYnpsxqJN7tSX9Bh8e_SMo_yWR9QG39_CxnoWGcHrR6PGRVBUFP7_rwqJq0JoY_L14F6zEXa207NVIuAYRVbv6LM4CMe47dVsotsYXYx";
 const client = yelp.client(key);
 
 
