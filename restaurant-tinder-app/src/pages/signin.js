@@ -1,4 +1,5 @@
 import React from 'react'
+import axios from 'axios'
 
 class SignIn extends React.Component {
     constructor(props) {
@@ -22,6 +23,30 @@ class SignIn extends React.Component {
 
     handleSubmit(event) {
         var jsonString = JSON.stringify(this.state);
+
+        var userinfo = this.state;
+
+        //get all queries that match username and password
+        let checkUser = function(username,pass){
+            return axios.get("http://localhost:3001/find/UserInfo/" + username + 
+            "/" + pass)
+            .then(response => {return response.data})
+        };
+
+        let users = checkUser(this.state.username, this.state.password);
+        users.then(function(result){
+            console.log(result)
+
+            if (result === undefined || result.length == 0){
+                //invalid input
+            }
+            else
+            {
+                //it was valid input, so do stuff
+            }
+
+        })
+
         alert(jsonString);
         event.preventDefault();
     }

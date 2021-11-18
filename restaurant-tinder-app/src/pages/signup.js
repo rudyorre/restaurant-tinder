@@ -1,4 +1,5 @@
 import React from 'react'
+import axios from 'axios'
 
 class SignUp extends React.Component {
     constructor(props) {
@@ -47,6 +48,35 @@ class SignUp extends React.Component {
             alert(jsonString);
             event.preventDefault();
         }
+        var jsonString = JSON.stringify(this.state);
+
+        var userinfo = this.state;
+
+        //get all queries that match username
+        let checkUser = function(username){
+            return axios.get("http://localhost:3001/find/User/" + username)
+            .then(response => {return response.data})
+        };
+
+        let users = checkUser(this.state.username);
+        users.then(function(result){
+            //output for debugging
+            console.log(result)
+            //no user exists so add to DB
+            if (result === undefined || result.length == 0){
+                axios
+                .post("http://localhost:3001/record/User", userinfo)
+                .then((res) => console.log(res.data));
+            }
+            else{
+                //user already exists
+            }
+
+        })
+
+        alert(jsonString);
+        event.preventDefault();
+        
     }
 
     render() {
