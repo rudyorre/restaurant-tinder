@@ -31,6 +31,7 @@ class Filter extends React.Component {
             latitude: '',
             longitude: '',
             distance: '8046.72',
+            username: '',
         };
     
         this.handleChange = this.handleChange.bind(this);
@@ -260,47 +261,21 @@ class Filter extends React.Component {
                                 />
                                 <br/>
                             </section>
+                            <section class="col-12">
+                                <label>
+                                    <input
+                                        type="text"
+                                        name="username"
+                                        placeholder="Enter username"
+                                        onChange={this.handleChange}
+                                    />
+                                </label>
+                            </section>
                         </div>
                     </div>
                     <input type="submit" value="Submit" />
                 </form>
-                <div
-                    style={{
-                        display: 'flex',
-                        justifyContent: 'center',
-                        alignItems: 'center',
-                        height: '100vh'
-                    }}
-                >
-                    <form onSubmit={this.handleSubmit}>
-                        <label>
-                            Term:
-                            <input
-                                type="text"
-                                name="term"
-                                onChange={this.handleChange}
-                            />
-                        </label>
-                        <label>
-                            Category:
-                            <input
-                                type="text"
-                                name="category"
-                                onChange={this.handleChange}
-                            />
-                        </label>        
-                        <label>
-                            Price:
-                            <input
-                                type="text"
-                                name="price"
-                                onChange={this.handleChange}
-                            />
-                        </label>
-
-                        <input type="submit" value="Submit" />
-                    </form>
-                </div>
+                <br/><br/><br/>
             </div>
         );
     }
