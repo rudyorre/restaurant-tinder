@@ -56,17 +56,22 @@ recordRoutes.route("/record/Disliked").post(function (req, response) {
 recordRoutes.route("/record/Filter").post(function (req, response) {
     let db_connect = dbo.getDb();
     let myobj = {
-      username: req.body.username,
+      location: req.body.location,
       term: req.body.term,
       category: req.body.category,
       price: req.body.price,
+      latitude: req.body.latitude,
+      longitude: req.body.longitude,
+      distance: req.body.distance,
+      username: req.body.username,
     };
     db_connect.collection("Filter").insertOne(myobj, function (err, res) {
       if (err) throw err;
       response.json(res);
     });
   });
-
+ 
+ 
 
 // This section will help you get all records of Liked for user
 recordRoutes.route("/find/Liked/:username").get(function (req, res) {

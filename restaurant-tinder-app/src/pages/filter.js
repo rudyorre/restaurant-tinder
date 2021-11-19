@@ -14,6 +14,8 @@ import Fuse from 'fuse.js';
 
 import { usePosition } from 'use-position';
 
+import axios from 'axios'
+
 const SliderWithTooltip = createSliderWithTooltip(Slider);
 
 function percentFormatter(v) {
@@ -89,6 +91,11 @@ class Filter extends React.Component {
 
     handleSubmit(event) {
         var jstring = JSON.stringify(this.state);
+
+        console.log(this.state)
+        axios
+            .post("http://localhost:3001/record/Filter/",this.state)
+
         alert(jstring);
         event.preventDefault();
     }

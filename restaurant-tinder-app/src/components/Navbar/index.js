@@ -16,7 +16,7 @@ const Navbar = () => {
     return (
         <>
            <Nav>
-           <NavLogo to="/">
+           <NavLogo to="/filter">
                     <img 
                         src={app_logo} 
                         alt = "logo"
