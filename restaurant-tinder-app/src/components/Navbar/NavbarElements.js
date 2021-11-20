@@ -10,12 +10,18 @@ export const Nav = styled.nav`
     align-items: center;
     padding: 0.2rem calc((100vw - 1000px) / 2);
     z-index: 12;
+    position: -webkit-sticky;
+    position: sticky;
+    top: 0px;
 `;
 export const NavLogo = styled(Link)`
   cursor: pointer;
   color: #fff;
   font-size: 2rem;
   text-decoration: none;
+  &:hover {
+    color: black;
+  }
 `;
 
 export const NavLink = styled(Link)`
