@@ -17,8 +17,10 @@ recordRoutes.route("/record/User").post(function (req, response) {
     let myobj = {
       username: req.body.username,
       password: req.body.password,
-      
     };
+    req.session.username = req.body.username;
+
+    console.log(req.session)
     db_connect.collection("UserInfo").insertOne(myobj, function (err, res) {
       if (err) throw err;
       response.json(res);
@@ -71,7 +73,6 @@ recordRoutes.route("/record/Filter").post(function (req, response) {
     });
   });
  
- 
 
 // This section will help you get all records of Liked for user
 recordRoutes.route("/find/Liked/:username").get(function (req, res) {
@@ -100,7 +101,16 @@ recordRoutes.route("/find/Disliked/:username").get(function (req, res) {
 // This section will help you get all records of Filters
 recordRoutes.route("/find/Filters/:username").get(function (req, res) {
     let db_connect = dbo.getDb();
-    let myquery = { username: req.params.username };
+    let myquery = { 
+      location: req.body.location,
+      term: req.body.term,
+      category: req.body.category,
+      price: req.body.price,
+      latitude: req.body.latitude,
+      longitude: req.body.longitude,
+      distance: req.body.distance,
+      username: req.body.username,
+    };
     db_connect
         .collection("Filter")
         .find(myquery).toArray(function (err, result) {
@@ -128,6 +138,8 @@ recordRoutes.route("/find/UserInfo/:username/:password").get(function (req, res)
     username: req.params.username,
     password: req.params.password, 
   };
+
+  req.session.username = req.params.username;
   db_connect
       .collection("UserInfo")
       .find(myquery).toArray(function (err, result) {
