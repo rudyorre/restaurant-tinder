@@ -101,21 +101,6 @@ app.get('/detail', (req, res) => {
 
 // POST requests should be implemented to interface with the database
 
-const session = require('express-session');
-const MongoStore = require('connect-mongo');
-
-//create a session for each user
-app.use(session({
-  secret: 'SECRET KEY',
-  resave: false,
-  saveUninitialized: false,
-  store: MongoStore.create({
-    mongoUrl: "mongodb+srv://CS35L:vOvq6tpjm9h2UMay@web-app.tmo7a.mongodb.net/myFirstDatabase?retryWrites=true&w=majority",
-    //ttl: 14 * 24 * 60 * 60,
-    //autoRemove: 'native',
-  })
-}));
-
 app.use(express.json());
 app.use(require("./routes/record"));
 // get driver connection

@@ -18,9 +18,6 @@ recordRoutes.route("/record/User").post(function (req, response) {
       username: req.body.username,
       password: req.body.password,
     };
-    req.session.username = req.body.username;
-
-    console.log(req.session)
     db_connect.collection("UserInfo").insertOne(myobj, function (err, res) {
       if (err) throw err;
       response.json(res);
@@ -67,6 +64,7 @@ recordRoutes.route("/record/Filter").post(function (req, response) {
       distance: req.body.distance,
       username: req.body.username,
     };
+
     db_connect.collection("Filter").insertOne(myobj, function (err, res) {
       if (err) throw err;
       response.json(res);
@@ -139,7 +137,6 @@ recordRoutes.route("/find/UserInfo/:username/:password").get(function (req, res)
     password: req.params.password, 
   };
 
-  req.session.username = req.params.username;
   db_connect
       .collection("UserInfo")
       .find(myquery).toArray(function (err, result) {
