@@ -45,16 +45,28 @@ app.get('/categories', (req, res) => {
 app.get('/restaurants', (req, res) => {
   // **Extract parameters from req for search**
   client.search({
-    term: 'coffee',
+    term: 'asian',
     location: 'los angeles, ca',
-    radius: 20000,
-    categories: 'cafes',
+    radius: 2000,
+    categories: 'asian',
     price: 2,
-    open_at: 1636138800,
+    // open_at: 1636138800,
     limit: 50,
   }).then(response => {
-    res.send(response.jsonBody);
-    //res.send(response.jsonBody.businesses.map(x => x.alias));
+    // res.send(response.jsonBody);
+    res.send(response.jsonBody.businesses.map(x => ({
+      key: x.alias,
+      title: x.name,
+      image: x.image_url,
+      link: x.url,
+      phone: x.display_phone,
+      stars: x.rating,
+      reviews: x.review_count,
+      categories: x.categories.map(c => c.title),
+      address: x.location.display_address[0] + ", " + x.location.display_address[1],
+      price: x.price,
+      transactions: x.transactions
+    })));
   }).catch(e => {
     console.log(e);
   });
@@ -63,7 +75,7 @@ app.get('/restaurants', (req, res) => {
 // GET route for details on a single restuarant
 app.get('/detail', (req, res) => {
   // **Extract restaurant from req to get more detail**
-  client.business('gary-danko-san-francisco').then(response => {
+  client.business('northern-cafe-los-angeles').then(response => {
     const obj = response.jsonBody;
     let ans = {};
 
@@ -79,6 +91,7 @@ app.get('/detail', (req, res) => {
     ans.location = obj.location.display_address;
     ans.price = obj.price;
     ans.hours = obj.hours;
+    ans.transactions = obj.transactions;
 
     res.send(JSON.stringify(ans));
   }).catch(e => {
