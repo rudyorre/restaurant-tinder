@@ -15,7 +15,7 @@ import app_logo from '../../images/app_logo.png';
 const Navbar = () => {
     return (
         <>
-           <Nav>
+           <Nav sticky="top">
            <NavLogo to="/filter">
                     <img 
                         src={app_logo} 
@@ -24,7 +24,7 @@ const Navbar = () => {
                         border_radius = "30px"
                         padding = "100px"
                         />{''}
-                Scramble!
+                SCRAMBLE!
             </NavLogo>
 
         
@@ -35,15 +35,19 @@ const Navbar = () => {
                 <NavLink to="/filter" activestyle='true'>
                     Home
                 </NavLink>
+
                 <NavLink to="/about" activestyle='true'>
                     About
                 </NavLink>
+                
                 <NavLink to="/Profile" activestyle='true'>
                     Profile
                 </NavLink>
+
                 <NavLink to="/signin" activestyle='true'>
                     Sign In
                 </NavLink>
+
                 <NavBtn>
                     <NavBtnLink to="/sign-up">Sign Up</NavBtnLink>                
                 </NavBtn>
