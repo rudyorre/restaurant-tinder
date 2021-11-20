@@ -11,7 +11,7 @@ const About = () => {
             <br/>
             <div>
                 <h1>About SCRAMBLE!</h1>
-                <p> A React app for finding restaurants according to your preferences, so you don't have to . . . scramble to find a match.</p>
+                <p> A React app for finding restaurants according to your preferences, so you don't . . . scramble to find a match.</p>
             </div>
 
             <div>
