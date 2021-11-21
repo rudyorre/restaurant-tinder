@@ -26,14 +26,12 @@ const Navbar = () => {
                         />{''}
                 SCRAMBLE!
             </NavLogo>
-
-        
-
+            
             <Bars />
 
             <NavMenu>
                 <NavLink to="/filter" activestyle='true'>
-                    Home
+                    Search
                 </NavLink>
 
                 <NavLink to="/about" activestyle='true'>
@@ -44,13 +42,6 @@ const Navbar = () => {
                     Profile
                 </NavLink>
 
-                <NavLink to="/signin" activestyle='true'>
-                    Sign In
-                </NavLink>
-
-                <NavBtn>
-                    <NavBtnLink to="/sign-up">Sign Up</NavBtnLink>                
-                </NavBtn>
             </NavMenu> 
            </Nav> 
         </>

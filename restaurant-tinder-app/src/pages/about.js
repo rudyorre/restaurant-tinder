@@ -13,11 +13,15 @@ const About = () => {
                 <h1 className="alignment">About SCRAMBLE!</h1>
                 <p className="alignment"> A React app for finding restaurants according to your preferences, so you don't have to . . . scramble to find a match.</p>
             </div>
+            <br/>
+
+            <hr/>
 
             <div>
                 <h1>Creators</h1>
             </div>
 
+            <br/>
 
             <div>
                 <CardGroup>

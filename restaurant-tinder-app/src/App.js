@@ -25,7 +25,7 @@ function App() {
     <Router>
       <Navbar />
       <Routes>
-        <Route path="/" exact element={<Filter />} /><Route/>
+        <Route path="/" exact element={<SignIn />} /><Route/>
         <Route path="/about" element={<About/>} /><Route/>
         <Route path="/profile" element={<Profile/>} /><Route/>
         <Route path="/signin" element={<SignIn/>} /><Route/>
