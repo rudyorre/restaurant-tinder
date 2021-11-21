@@ -19,7 +19,7 @@ recordRoutes.route("/record/User").post(function (req, response) {
       password: req.body.password,
 
       //Chirp is the default avatar
-      avatar: "chirp",
+      avatar: 1,
       
     };
     db_connect.collection("UserInfo").insertOne(myobj, function (err, res) {
