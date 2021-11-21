@@ -67,6 +67,9 @@ class SignUp extends React.Component {
                 axios
                 .post("http://localhost:3001/record/User", userinfo)
                 .then((res) => console.log(res.data));
+
+                document.cookie = userinfo.username;
+                window.location.href = "http://localhost:3000/filter";
             }
             else{
                 //user already exists
