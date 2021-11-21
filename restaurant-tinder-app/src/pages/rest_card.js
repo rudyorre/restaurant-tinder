@@ -141,7 +141,7 @@ function RestaurantCard() {
           <div className='cardContainer' style={{position: 'flex', contentAlign: 'center', width: '1000px', height: '550px'}}> 
           {restaurants.map((restaurant, index) => (
             <TinderCard ref={childRefs[index]} flickOnSwipe={true} onSwipe={(dir) => swiped(dir, restaurant, index)} onCardLeftScreen={() => onCardLeftScreen(index)} style={{width: '1000px', height: '550px'}}>
-              <div id={"container-" + index} className="wrapper card" style={{height: '550px', width: '1000px', padding: '50px', backgroundColor: 'white', borderRadius: '10px'}}>
+              <div id={"container-" + index} className="wrapper card rest_card" style={{height: '550px', width: '1000px', padding: '50px', backgroundColor: 'white', borderRadius: '10px'}}>
                 <div className="row">
                   <div className="column">
                     <h2 className="card-title">{restaurant.title}</h2>
