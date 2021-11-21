@@ -155,7 +155,7 @@ recordRoutes.route("/delete/user/:username").delete((req, response) => {
 // This section will help you update a record by id.
 recordRoutes.route("/update").post(function (req, response) {
   let db_connect = dbo.getDb();
-  let myquery = { username: req.body.username };
+  let myquery = { username: req.body.username, alias: req.body.alias};
   let newvalues = {
     $set: {
       username: req.body.username,
