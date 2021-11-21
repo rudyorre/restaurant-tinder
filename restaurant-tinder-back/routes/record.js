@@ -82,7 +82,9 @@ recordRoutes.route("/find/status/:username/:status").get(function (req, res) {
 // This section will help you get all records of Filters
 recordRoutes.route("/find/Filters/:username").get(function (req, res) {
     let db_connect = dbo.getDb();
-    let myquery = { username: req.params.username };
+    let myquery = {
+      username: req.params.username,
+    };
     db_connect
         .collection("Filter")
         .find(myquery).toArray(function (err, result) {
