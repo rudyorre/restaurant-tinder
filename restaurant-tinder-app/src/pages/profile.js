@@ -2,8 +2,6 @@ import React from 'react'
 import Card from 'react-bootstrap/Card'
 import Button from 'react-bootstrap/Button'
 import ButtonGroup from 'react-bootstrap/ButtonGroup'
-import ToggleButton from 'react-bootstrap/ToggleButton'
-import ToggleButtonGroup from 'react-bootstrap/ToggleButtonGroup'
 import {Link} from "react-router-dom";
 
 import chirp from '../images/avatar_Chirp.png'
@@ -13,7 +11,9 @@ import sleep from '../images/avatar_Sleep.png'
 import wiggle from '../images/avatar_Wiggle.png'
 import './profile.css'
 import axios from 'axios'
-import { FaBorderNone } from 'react-icons/fa'
+
+
+//Username in document.cookie
 
 
 var user={
@@ -27,7 +27,7 @@ class Profile extends React.Component{
         super(props);
 
         this.state = {
-            username: "Yurae",
+            username: document.cookie,
             avatar: 1,
             image: "",
             email: "",
