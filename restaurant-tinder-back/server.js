@@ -65,7 +65,7 @@ app.get('/restaurants', (req, res) => {
       categories: x.categories.map(c => c.title),
       address: x.location.display_address[0] + ", " + x.location.display_address[1],
       price: x.price,
-      transactions: x.transactions
+      transactions: x.transactions.map(t => t.split('_').join(' ')),
     })));
   }).catch(e => {
     console.log(e);
@@ -100,21 +100,6 @@ app.get('/detail', (req, res) => {
 })
 
 // POST requests should be implemented to interface with the database
-
-const session = require('express-session');
-const MongoStore = require('connect-mongo');
-
-//create a session for each user
-app.use(session({
-  secret: 'SECRET KEY',
-  resave: false,
-  saveUninitialized: false,
-  store: MongoStore.create({
-    mongoUrl: "mongodb+srv://CS35L:vOvq6tpjm9h2UMay@web-app.tmo7a.mongodb.net/myFirstDatabase?retryWrites=true&w=majority",
-    //ttl: 14 * 24 * 60 * 60,
-    //autoRemove: 'native',
-  })
-}));
 
 app.use(express.json());
 app.use(require("./routes/record"));

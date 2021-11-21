@@ -2,6 +2,31 @@
     text-align: center;
 }
 
-.bg-avatarButton{
+.btn-avatarButton{
     background: #FE4501;
+}
+
+.btn-Blue-BG:active {
+    background-color: #FE4501 !important;
+  }
+
+.image-button:hover{
+    background-color: #FE4501 !important;
+    color: white !important;
+    border-color: #FE4501 !important;
+}
+
+.image-button:focus{
+    background-color: #FE4501 !important;
+    color: white !important;
+    border-color: #FE4501 !important;
+    box-shadow: 0 0 0 0.2rem #FE4501 !important;
+
+}
+
+.image-button{
+    background-color: white !important;
+    color: #FE4501 !important;
+    border-color: #FE4501 !important;
+
 }
