@@ -65,7 +65,7 @@ app.get('/restaurants', (req, res) => {
       categories: x.categories.map(c => c.title),
       address: x.location.display_address[0] + ", " + x.location.display_address[1],
       price: x.price,
-      transactions: x.transactions
+      transactions: x.transactions.map(t => t.split('_').join(' ')),
     })));
   }).catch(e => {
     console.log(e);
