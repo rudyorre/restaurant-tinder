@@ -20,6 +20,7 @@ class FilterList extends React.Component {
         axios.get("http://localhost:3001/find/Filters/rudyorre")
         .then((response) => response.data)
         .then(filterList => {
+            console.log(filterList);
             this.setState({ filters: filterList });
         });
     }
@@ -73,9 +74,26 @@ class FilterList extends React.Component {
             </Card.Body>
           </Card>
         ));
+
+
         return (
             <center>
-                {stuff}
+                <Row xs={1} md={3} className="g-4" style={{ margin: '10px' }}>
+                    {filters.map((filter, idx) => (
+                        <Col>
+                        <Card style={{ position: 'relative', margin: '0px' }}>
+                            <Card.Img variant="top" src="holder.js/100px160" />
+                            <Card.Body>
+                            <Card.Title>{filter.category}</Card.Title>
+                            <Card.Text>
+                                This is a longer card with supporting text below as a natural
+                                lead-in to additional content. This content is a little bit longer.
+                            </Card.Text>
+                            </Card.Body>
+                        </Card>
+                        </Col>
+                    ))}
+                </Row>
             </center>);
     }
 }

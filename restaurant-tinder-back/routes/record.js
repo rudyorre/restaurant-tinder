@@ -101,15 +101,8 @@ recordRoutes.route("/find/Disliked/:username").get(function (req, res) {
 // This section will help you get all records of Filters
 recordRoutes.route("/find/Filters/:username").get(function (req, res) {
     let db_connect = dbo.getDb();
-    let myquery = { 
-      location: req.body.location,
-      term: req.body.term,
-      category: req.body.category,
-      price: req.body.price,
-      latitude: req.body.latitude,
-      longitude: req.body.longitude,
-      distance: req.body.distance,
-      username: req.body.username,
+    let myquery = {
+      username: req.params.username,
     };
     db_connect
         .collection("Filter")

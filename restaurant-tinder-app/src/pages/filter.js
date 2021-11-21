@@ -30,6 +30,7 @@ class Filter extends React.Component {
     constructor(props) {
         super(props);
         this.state = {
+            name: '',
             location: '',
             term: '',
             category: '',
@@ -38,6 +39,8 @@ class Filter extends React.Component {
             longitude: '',
             distance: '8046.72',
             username: '',
+            time: '',
+            isOpen: false
         };
     
         this.handleChange = this.handleChange.bind(this);
@@ -104,15 +107,40 @@ class Filter extends React.Component {
         event.preventDefault();
     }
 
+    setOverlay(value) {
+        this.setState({isOpen: value});
+    }
+
     render() {
         // const [isOpen, setOverlay] = useState(false);
         // category dropdown variables
         const options = getCategories();
         let categoryValue = this.state.category;
 
+        const closeOverlay = () => this.setOverlay(false);
+
+        const configs = {
+            animate: true,
+            // clickDismiss: false,
+            // escapeDismiss: false,
+            // focusOutline: false,
+        };
+
         return (
             <div>
-                <div style={{display: 'flex'}}>
+                <button
+                    className="primary"
+                    onClick={() => {
+                        this.setOverlay(true);
+                    }}
+                >
+                    open modal
+                </button>
+
+                <Overlay configs={configs} isOpen={this.state.isOpen} closeOverlay={closeOverlay}>
+                    <h2>Sample header</h2>
+                    <div>
+                <div>
                     <form onSubmit={this.handleSubmit}>
                         <div class="container-fluid">
                             <div class="row" id="fs_app">
@@ -288,10 +316,21 @@ class Filter extends React.Component {
                         </div>
                         <input type="submit" value="Submit" />
                     </form>
-                    <div>
-                        <FilterList />
-                    </div>
                 </div>
+                </div>
+
+                    <button
+                        className="danger"
+                        onClick={() => {
+                            this.setOverlay(false);
+                        }}
+                    >
+                        close modal
+                    </button>
+                    </Overlay>
+
+            
+                    <FilterList />
             </div>
         );
     }
