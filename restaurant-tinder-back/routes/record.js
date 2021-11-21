@@ -17,6 +17,7 @@ recordRoutes.route("/record/User").post(function (req, response) {
     let myobj = {
       username: req.body.username,
       password: req.body.password,
+      
     };
     db_connect.collection("UserInfo").insertOne(myobj, function (err, res) {
       if (err) throw err;
@@ -30,7 +31,9 @@ recordRoutes.route("/record/Liked").post(function (req, response) {
     let db_connect = dbo.getDb();
     let myobj = {
       username: req.body.username,
-      Liked: req.body.Liked,
+      alias: req.body.alias,
+      name: req.body.name,
+      address: req.body.address
     };
     db_connect.collection("Liked").insertOne(myobj, function (err, res) {
       if (err) throw err;
@@ -64,12 +67,12 @@ recordRoutes.route("/record/Filter").post(function (req, response) {
       distance: req.body.distance,
       username: req.body.username,
     };
-
     db_connect.collection("Filter").insertOne(myobj, function (err, res) {
       if (err) throw err;
       response.json(res);
     });
   });
+ 
  
 
 // This section will help you get all records of Liked for user
@@ -99,16 +102,7 @@ recordRoutes.route("/find/Disliked/:username").get(function (req, res) {
 // This section will help you get all records of Filters
 recordRoutes.route("/find/Filters/:username").get(function (req, res) {
     let db_connect = dbo.getDb();
-    let myquery = { 
-      location: req.body.location,
-      term: req.body.term,
-      category: req.body.category,
-      price: req.body.price,
-      latitude: req.body.latitude,
-      longitude: req.body.longitude,
-      distance: req.body.distance,
-      username: req.body.username,
-    };
+    let myquery = { username: req.params.username };
     db_connect
         .collection("Filter")
         .find(myquery).toArray(function (err, result) {
@@ -136,7 +130,6 @@ recordRoutes.route("/find/UserInfo/:username/:password").get(function (req, res)
     username: req.params.username,
     password: req.params.password, 
   };
-
   db_connect
       .collection("UserInfo")
       .find(myquery).toArray(function (err, result) {
@@ -158,24 +151,25 @@ recordRoutes.route("/delete/user/:username").delete((req, response) => {
 
   module.exports = recordRoutes;
 
-/*
+
 // This section will help you update a record by id.
-recordRoutes.route("/update/:id").post(function (req, response) {
+recordRoutes.route("/update").post(function (req, response) {
   let db_connect = dbo.getDb();
-  let myquery = { _id: ObjectId( req.params.id )};
+  let myquery = { username: req.body.username };
   let newvalues = {
     $set: {
-      person_name: req.body.person_name,
-      person_position: req.body.person_position,
-      person_level: req.body.person_level,
+      username: req.body.username,
+      status: req.body.status,
+      alias: req.body.alias,
+      name: req.body.name,
+      address: req.body.address,
     },
   };
   db_connect
-    .collection("records")
-    .updateOne(myquery, newvalues, function (err, res) {
+    .collection("LikeOrDislike")
+    .updateOne(myquery, newvalues, {upsert: true}, function (err, res) {
       if (err) throw err;
       console.log("1 document updated");
       response.json(res);
     });
 });
-*/
