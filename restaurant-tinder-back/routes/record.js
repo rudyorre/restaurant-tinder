@@ -37,40 +37,10 @@ recordRoutes.route("/record/User").post(function (req, response) {
       //Update with new avatar
       $set : {avatar: req.body.avatar},
     };
-
   
     db_connect.collection("UserInfo").updateOne(myquery, newvalues, function (err, res) {
       if (err) throw err;
       console.log("1 document updated");
-      response.json(res);
-    });
-  });
-
-  
-// This section will help you create a new record for Liked.
-recordRoutes.route("/record/Liked").post(function (req, response) {
-    let db_connect = dbo.getDb();
-    let myobj = {
-      username: req.body.username,
-      alias: req.body.alias,
-      name: req.body.name,
-      address: req.body.address
-    };
-    db_connect.collection("Liked").insertOne(myobj, function (err, res) {
-      if (err) throw err;
-      response.json(res);
-    });
-  });
-
-// This section will help you create a new record for Disliked
-recordRoutes.route("/record/Disliked").post(function (req, response) {
-    let db_connect = dbo.getDb();
-    let myobj = {
-      username: req.body.username,
-      Disliked: req.body.Disliked,
-    };
-    db_connect.collection("Disliked").insertOne(myobj, function (err, res) {
-      if (err) throw err;
       response.json(res);
     });
   });
@@ -94,26 +64,15 @@ recordRoutes.route("/record/Filter").post(function (req, response) {
     });
   });
  
- 
-
-// This section will help you get all records of Liked for user
-recordRoutes.route("/find/Liked/:username").get(function (req, res) {
-  let db_connect = dbo.getDb();
-  let myquery = { username: req.params.username };
-  db_connect
-      .collection("Liked")
-      .find(myquery).toArray(function (err, result) {
-        if (err) throw err;
-        res.json(result);
-      });
-});
-
-// This section will help you get all records of Disliked
-recordRoutes.route("/find/Disliked/:username").get(function (req, res) {
+// This section will help you get all records of Liked or Disliked
+recordRoutes.route("/find/status/:username/:status").get(function (req, res) {
     let db_connect = dbo.getDb();
-    let myquery = { username: req.params.username };
+    let myquery = { 
+      username: req.params.username,
+      status: req.params.status,
+     };
     db_connect
-        .collection("Disliked")
+        .collection("LikeOrDislike")
         .find(myquery).toArray(function (err, result) {
           if (err) throw err;
           res.json(result);
@@ -159,21 +118,7 @@ recordRoutes.route("/find/UserInfo/:username/:password").get(function (req, res)
       });
 });
 
-// This section will help you delete a record of User
-recordRoutes.route("/delete/user/:username").delete((req, response) => {
-    let db_connect = dbo.getDb();
-    let myquery = { username: req.params.username };
-    db_connect.collection("UserInfo").deleteOne(myquery, function (err, obj) {
-      if (err) throw err;
-      console.log("1 document deleted");
-      response.status(obj);
-    });
-  });
-
-  module.exports = recordRoutes;
-
-
-// This section will help you update a record by id.
+// This section will help you create/update like and dislike
 recordRoutes.route("/update").post(function (req, response) {
   let db_connect = dbo.getDb();
   let myquery = { username: req.body.username, alias: req.body.alias};
@@ -194,3 +139,64 @@ recordRoutes.route("/update").post(function (req, response) {
       response.json(res);
     });
 });
+
+
+module.exports = recordRoutes;
+
+/* not used
+// This section will help you create a new record for Liked.
+recordRoutes.route("/record/Liked").post(function (req, response) {
+    let db_connect = dbo.getDb();
+    let myobj = {
+      username: req.body.username,
+      alias: req.body.alias,
+      name: req.body.name,
+      address: req.body.address
+    };
+    db_connect.collection("Liked").insertOne(myobj, function (err, res) {
+      if (err) throw err;
+      response.json(res);
+    });
+  });
+
+// This section will help you create a new record for Disliked
+recordRoutes.route("/record/Disliked").post(function (req, response) {
+    let db_connect = dbo.getDb();
+    let myobj = {
+      username: req.body.username,
+      Disliked: req.body.Disliked,
+    };
+    db_connect.collection("Disliked").insertOne(myobj, function (err, res) {
+      if (err) throw err;
+      response.json(res);
+    });
+  });
+*/
+
+/* not implemented yet
+// This section will help you delete a record of User
+recordRoutes.route("/delete/user/:username").delete((req, response) => {
+    let db_connect = dbo.getDb();
+    let myquery = { username: req.params.username };
+    db_connect.collection("UserInfo").deleteOne(myquery, function (err, obj) {
+      if (err) throw err;
+      console.log("1 document deleted");
+      response.status(obj);
+    });
+  });
+*/
+
+ 
+/* not used
+// This section will help you get all records of Liked for user
+recordRoutes.route("/find/Liked/:username").get(function (req, res) {
+  let db_connect = dbo.getDb();
+  let myquery = { username: req.params.username };
+  db_connect
+      .collection("Liked")
+      .find(myquery).toArray(function (err, result) {
+        if (err) throw err;
+        res.json(result);
+      });
+});
+*/
