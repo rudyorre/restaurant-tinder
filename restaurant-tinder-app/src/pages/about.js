@@ -10,8 +10,8 @@ const About = () => {
         <div>
             <br/>
             <div>
-                <h1>About SCRAMBLE!</h1>
-                <p> A React app for finding restaurants according to your preferences, so you don't . . . scramble to find a match.</p>
+                <h1 className="alignment">About SCRAMBLE!</h1>
+                <p className="alignment"> A React app for finding restaurants according to your preferences, so you don't have to . . . scramble to find a match.</p>
             </div>
 
             <div>

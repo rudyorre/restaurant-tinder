@@ -12,5 +12,6 @@ npm install rc-slider
 npm install react-select-search
 npm install fuse.js
 npm install use-position
+npm install react-bootstrap --save
 
 npm start

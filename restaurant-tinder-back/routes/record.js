@@ -17,10 +17,31 @@ recordRoutes.route("/record/User").post(function (req, response) {
     let myobj = {
       username: req.body.username,
       password: req.body.password,
+
+      //Chirp is the default avatar
+      avatar: "chirp",
       
     };
     db_connect.collection("UserInfo").insertOne(myobj, function (err, res) {
       if (err) throw err;
+      response.json(res);
+    });
+  });
+
+  //Edit the user's profile -- for the Avatar
+  recordRoutes.route("/update/UserInfo/:username").post(function (req, response) {
+    
+    let db_connect = dbo.getDb();
+    let myquery = {username: req.body.username};
+    let newvalues = {
+      //Update with new avatar
+      $set : {avatar: req.body.avatar},
+    };
+
+  
+    db_connect.collection("UserInfo").updateOne(myquery, newvalues, function (err, res) {
+      if (err) throw err;
+      console.log("1 document updated");
       response.json(res);
     });
   });
