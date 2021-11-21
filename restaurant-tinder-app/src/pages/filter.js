@@ -1,4 +1,4 @@
-import React from 'react'
+import React, { useState } from 'react'
 import './filter.css';
 import '../../node_modules/font-awesome/css/font-awesome.min.css';
 import '../../node_modules/bootstrap/dist/css/bootstrap.min.css';
@@ -11,6 +11,10 @@ import 'rc-slider/assets/index.css';
 import SelectSearch from 'react-select-search';
 import '../assets/search.css';
 import Fuse from 'fuse.js';
+
+import FilterList from '../assets/FilterList.js';
+
+import Overlay from "react-overlay-component";
 
 import { usePosition } from 'use-position';
 
@@ -101,188 +105,193 @@ class Filter extends React.Component {
     }
 
     render() {
+        // const [isOpen, setOverlay] = useState(false);
         // category dropdown variables
         const options = getCategories();
         let categoryValue = this.state.category;
 
         return (
             <div>
-                <form onSubmit={this.handleSubmit}>
-                    <div class="container-fluid">
-                        <div class="row" id="fs_app">
+                <div style={{display: 'flex'}}>
+                    <form onSubmit={this.handleSubmit}>
+                        <div class="container-fluid">
+                            <div class="row" id="fs_app">
 
-                            <section class="col-12" id="fs_header_bar">
-                                <div class="row">
-                                    {/*<div class="col-2">
-                                        <i class="fa fa-chevron-left"></i>
-                                    </div>*/}
-                                    <div class="col-10" id="fs_page_title">
-                                        Filters
+                                <section class="col-12" id="fs_header_bar">
+                                    <div class="row">
+                                        {/*<div class="col-2">
+                                            <i class="fa fa-chevron-left"></i>
+                                        </div>*/}
+                                        <div class="col-10" id="fs_page_title">
+                                            Filters
+                                        </div>
                                     </div>
-                                </div>
-                            </section>
+                                </section>
 
-                            <section class="col-12" id="fs_price_body">
-                                    <span class="heading">
-                                        Location
-                                    </span>
-                                <div class="row">
-                                    <div class="col-6">
-                                        <label>
-                                            <input
-                                                type="text"
-                                                name="location"
-                                                placeholder="Enter Location"
-                                                onChange={this.handleChange}
+                                <section class="col-12" id="fs_price_body">
+                                        <span class="heading">
+                                            Location
+                                        </span>
+                                    <div class="row">
+                                        <div class="col-6">
+                                            <label>
+                                                <input
+                                                    type="text"
+                                                    name="location"
+                                                    placeholder="Enter Location"
+                                                    onChange={this.handleChange}
+                                                />
+                                            </label>
+                                        </div>
+                                        <div class="col-4 active">
+                                            <button
+                                                    class="btn"
+                                                    type="button"
+                                                    name="coordinate"
+                                                    value="1"
+                                                    onClick={this.handleCoordinates}
+                                            >Use Your Location</button>
+                                        </div>
+                                    </div>
+                                </section>
+
+                                <section class="col-12">
+                                    <div>
+                                        <span class="heading">
+                                            Term
+                                        </span>
+                                        <div class="row">
+                                            <label>
+                                                <input
+                                                    type="text"
+                                                    name="term"
+                                                    placeholder="Enter Search Term"
+                                                    onChange={this.handleChange}
+                                                />
+                                            </label>
+                                        </div>
+                                    </div>
+                                </section>
+
+                                <section class="col-12">
+                                    <div>
+                                        <span class="heading">
+                                            Category
+                                        </span>
+                                        <div class="row">
+                                            <SelectSearch
+                                                options={options}
+                                                multiple="true"
+                                                search
+                                                printOptions="on-focus"
+                                                filterOptions={fuzzySearch}
+                                                placeholder="Select your category"
+                                                value={categoryValue}
+                                                onChange={value => this.handleCategory(value)}
                                             />
-                                        </label>
+                                        </div>
                                     </div>
-                                    <div class="col-4 active">
-                                        <button
-                                                class="btn"
-                                                type="button"
-                                                name="coordinate"
-                                                value="1"
-                                                onClick={this.handleCoordinates}
-                                        >Use Your Location</button>
-                                    </div>
-                                </div>
-                            </section>
+                                </section>
 
-                            <section class="col-12">
-                                <div>
+                                <section class="col-12" id="fs_price_body">
+                                    <div>
+                                        <span class="heading">
+                                            By Price
+                                        </span>
+                                        <div class="row">
+                                            <div class={this.state.price == '1' ? "col-3 active" : "col-3"}>
+                                                <button
+                                                    class="btn"
+                                                    type="button"
+                                                    name="price"
+                                                    value="1"
+                                                    onClick={this.handleChange}
+                                                >$</button>
+                                            </div>
+                                            <div class={this.state.price == '2' ? "col-3 active" : "col-3"}>
+                                                <button
+                                                    class="btn"
+                                                    type="button"
+                                                    name="price"
+                                                    value="2"
+                                                    onClick={this.handleChange}
+                                                >$$</button>
+                                            </div>
+                                            <div class={this.state.price == '3' ? "col-3 active" : "col-3"}>
+                                                <button
+                                                    class="btn"
+                                                    type="button"
+                                                    name="price"
+                                                    value="3"
+                                                    onClick={this.handleChange}
+                                                >$$$</button>
+                                            </div>
+                                            <div class={this.state.price == '4' ? "col-3 active" : "col-3"}>
+                                                <button
+                                                    class="btn"
+                                                    type="button"
+                                                    name="price"
+                                                    value="4"
+                                                    onClick={this.handleChange}
+                                                >$$$$</button>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </section>
+
+                                <section class="col-12" id="fs_distance_body">
                                     <span class="heading">
-                                        Term
+                                        By Distance
                                     </span>
-                                    <div class="row">
-                                        <label>
-                                            <input
-                                                type="text"
-                                                name="term"
-                                                placeholder="Enter Search Term"
-                                                onChange={this.handleChange}
-                                            />
-                                        </label>
+                                    <div>
+                                        <ul>
+                                            <li>0 miles</li>
+                                            <li>25 miles</li>
+                                        </ul>
                                     </div>
-                                </div>
-                            </section>
-
-                            <section class="col-12">
-                                <div>
-                                    <span class="heading">
-                                        Category
-                                    </span>
-                                    <div class="row">
-                                        <SelectSearch
-                                            options={options}
-                                            multiple="true"
-                                            search
-                                            printOptions="on-focus"
-                                            filterOptions={fuzzySearch}
-                                            placeholder="Select your category"
-                                            value={categoryValue}
-                                            onChange={value => this.handleCategory(value)}
-                                        />
-                                    </div>
-                                </div>
-                            </section>
-
-                            <section class="col-12" id="fs_price_body">
-                                <div>
-                                    <span class="heading">
-                                        By Price
-                                    </span>
-                                    <div class="row">
-                                        <div class={this.state.price == '1' ? "col-3 active" : "col-3"}>
-                                            <button
-                                                class="btn"
-                                                type="button"
-                                                name="price"
-                                                value="1"
-                                                onClick={this.handleChange}
-                                            >$</button>
-                                        </div>
-                                        <div class={this.state.price == '2' ? "col-3 active" : "col-3"}>
-                                            <button
-                                                class="btn"
-                                                type="button"
-                                                name="price"
-                                                value="2"
-                                                onClick={this.handleChange}
-                                            >$$</button>
-                                        </div>
-                                        <div class={this.state.price == '3' ? "col-3 active" : "col-3"}>
-                                            <button
-                                                class="btn"
-                                                type="button"
-                                                name="price"
-                                                value="3"
-                                                onClick={this.handleChange}
-                                            >$$$</button>
-                                        </div>
-                                        <div class={this.state.price == '4' ? "col-3 active" : "col-3"}>
-                                            <button
-                                                class="btn"
-                                                type="button"
-                                                name="price"
-                                                value="4"
-                                                onClick={this.handleChange}
-                                            >$$$$</button>
-                                        </div>
-                                    </div>
-                                </div>
-                            </section>
-
-                            <section class="col-12" id="fs_distance_body">
-                                <span class="heading">
-                                    By Distance
-                                </span>
-                                <div>
-                                    <ul>
-                                        <li>0 miles</li>
-                                        <li>25 miles</li>
-                                    </ul>
-                                </div>
-                                <SliderWithTooltip
-                                    tipFormatter={percentFormatter}
-                                    tipProps={{ overlayClassName: 'foo' }}
-                                    defaultValue='20'
-                                    trackStyle={{ backgroundColor: '#FE4501' }}
-                                    handleStyle={{
-                                        borderColor: '#FE4501'
-                                    }}
-                                    railStyle={{ backgroundColor: '#FE4501' }}
-                                    dotStyle={{ 
-                                        backgroundColor: '#FE4501',
-                                        borderColor: '#FE4501'
-                                    }}
-                                    marks={{
-                                        0:'0',
-                                        20:'5',
-                                        40:'10',
-                                        60:'15',
-                                        80:'20',
-                                        100:'25',
-                                    }}
-                                    onChange={this.handleSlider}
-                                />
-                                <br/>
-                            </section>
-                            <section class="col-12">
-                                <label>
-                                    <input
-                                        type="text"
-                                        name="username"
-                                        placeholder="Enter username"
-                                        onChange={this.handleChange}
+                                    <SliderWithTooltip
+                                        tipFormatter={percentFormatter}
+                                        tipProps={{ overlayClassName: 'foo' }}
+                                        defaultValue='20'
+                                        trackStyle={{ backgroundColor: '#FE4501' }}
+                                        handleStyle={{
+                                            borderColor: '#FE4501'
+                                        }}
+                                        railStyle={{ backgroundColor: '#FE4501' }}
+                                        dotStyle={{ 
+                                            backgroundColor: '#FE4501',
+                                            borderColor: '#FE4501'
+                                        }}
+                                        marks={{
+                                            0:'0',
+                                            20:'5',
+                                            40:'10',
+                                            60:'15',
+                                            80:'20',
+                                            100:'25',
+                                        }}
+                                        onChange={this.handleSlider}
                                     />
-                                </label>
-                            </section>
+                                    <br/>
+                                </section>
+                                <section class="col-12">
+                                    <label>
+                                        <input
+                                            type="text"
+                                            name="username"
+                                            placeholder="Enter username"
+                                            onChange={this.handleChange}
+                                        />
+                                    </label>
+                                </section>
+                            </div>
                         </div>
+                        <input type="submit" value="Submit" />
+                    </form>
+                    <div>
+                        <FilterList />
                     </div>
-                    <input type="submit" value="Submit" />
-                </form>
-                <br/><br/><br/>
+                </div>
             </div>
         );
     }
