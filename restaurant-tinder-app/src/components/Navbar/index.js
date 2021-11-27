@@ -12,7 +12,9 @@ import {
 
 import app_logo from '../../images/app_logo.png';
 
-const Navbar = () => {
+const Navbar = (props) => {
+    const isLoggedIn = props.isLoggedIn
+    if(isLoggedIn){
     return (
         <>
            <Nav sticky="top">
@@ -46,5 +48,8 @@ const Navbar = () => {
            </Nav> 
         </>
     );
+    }
+
+    else return null
 };
 export default Navbar;

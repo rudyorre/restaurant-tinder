@@ -23,9 +23,9 @@ function App() {
 
   return (
     <Router>
-      <Navbar />
+      <Navbar isLoggedIn={true}/>
       <Routes>
-        <Route path="/" exact element={<SignIn />} /><Route/>
+        <Route path="/" exact element={<SignIn/>} /><Route/>
         <Route path="/about" element={<About/>} /><Route/>
         <Route path="/profile" element={<Profile/>} /><Route/>
         <Route path="/signin" element={<SignIn/>} /><Route/>

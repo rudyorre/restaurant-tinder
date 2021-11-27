@@ -43,6 +43,7 @@ class SignIn extends React.Component {
             else
             {
                 //it was valid input, so do stuff
+
                 document.cookie = userinfo.username;
                 window.location.href = "http://localhost:3000/filter";
             }

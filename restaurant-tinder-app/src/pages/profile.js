@@ -34,7 +34,6 @@ class Profile extends React.Component{
         axios
           .get("http://localhost:3001/find/User/" + this.state.username)
           .then((response) => {
-            console.log(response)
             this.setState({
                 avatar: response.data[0].avatar,
                 image: choices[response.data[0].avatar -1],
@@ -81,6 +80,11 @@ class Profile extends React.Component{
         return;
     }
 
+    logoutCookie(){
+        document.cookie.split(";").forEach(function(c) { document.cookie = c.replace(/^ +/, "").replace(/=.*/, "=;expires=" + new Date().toUTCString() + ";path=/"); });
+        console.log(document.cookie)
+    } 
+
 
     render(){
         return(
@@ -107,7 +111,7 @@ class Profile extends React.Component{
                         <Link to="/filter"><Button className="image-button">Liked/Disliked Restaurants</Button></Link>
                         <Link to="/filter"><Button className="image-button">User Filter Profiles</Button></Link>
                     </ButtonGroup>
-                    <Link to="/signin"><Button variant = "link">Sign Out</Button></Link>
+                    <Link to="/signin"><Button variant = "link" onClick={()=> this.logoutCookie()}>Sign Out</Button></Link>
                 </Card.Body>
             </Card>
         </div>
