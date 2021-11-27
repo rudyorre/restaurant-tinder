@@ -1,7 +1,6 @@
 import React from "react";
 import Card from 'react-bootstrap/Card'
 import CardGroup from 'react-bootstrap/CardGroup'
-import app_logo from '../images/app_logo.png';
 import './about.css'
 import chirp from '../images/avatar_Chirp.png'
 import cowlick from '../images/avatar_Cowlick.png'
@@ -55,7 +54,7 @@ const About = () => {
                     <Card>
                         <Card.Img src={chirp}/>
                         <br/>
-                        <Card.Title className="name">Rudy</Card.Title>
+                        <Card.Title className="name">Rudy Orre</Card.Title>
                     </Card>
 
                     <Card>
