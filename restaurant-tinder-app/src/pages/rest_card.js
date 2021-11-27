@@ -29,7 +29,7 @@ function BackgroundCard() {
   return (
     <div id="bgcard" style={{display: 'none'}}>
       <a href="http://localhost:3000/filter" className="bgLink">
-        <img src={gudetama} className="bgImage"></img>
+        <img src={gudetama} className="bgImage" alt="filter link"></img>
       </a>
       <h3 className="bgLabel">well, you're really quite picky...</h3>
     </div>

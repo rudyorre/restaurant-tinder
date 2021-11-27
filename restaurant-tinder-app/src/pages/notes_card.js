@@ -1,4 +1,4 @@
-import React, { useState, useRef, useMemo } from 'react';
+import React from 'react';
 import TextField from '@mui/material/TextField';
 import ReactStars from "react-rating-stars-component";
 import './rest_card.css';
