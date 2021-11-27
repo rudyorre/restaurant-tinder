@@ -5,3 +5,17 @@
 .alignment{
     font-weight: 500;
 }
+
+.alignment_i{
+    font-style: italic;
+
+}
+
+.creator{
+    font-size: 50px;
+}
+
+.creator_sub{
+    font-size: 40px;
+    font-style: italic;
+}

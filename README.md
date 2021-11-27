@@ -1,5 +1,5 @@
 # restaurant-tinder
-A restaurant matching web application that helps users decide which restaurant to eat at. It allows the user to input their cuisine, location, price, etc. preferences as a saved filter profile. From this filter profile, users can either approve or disapprove each restaurant one at a time and also see more in depth information about it. The user can also make notes about their orders for restaurants they’ve approved of.
+A restaurant-matching web application that helps users find restaurants. Scramble! allows users to input their preferred cuisine, location, price, and other preferences, which will be saved as a "filter profile." From this "filter profile," users can either approve or disapprove each restaurant (one at a time) and see more in depth information about each restaurant. Users can also make notes about orders for their approved, or liked, restaurants.
 
 ## Members
 - Dioscuri
