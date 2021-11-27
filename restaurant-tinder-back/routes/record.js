@@ -131,6 +131,7 @@ recordRoutes.route("/update").post(function (req, response) {
       alias: req.body.alias,
       name: req.body.name,
       address: req.body.address,
+      order: req.body.order
     },
   };
   db_connect
