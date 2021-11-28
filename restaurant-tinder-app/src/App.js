@@ -11,6 +11,8 @@ import SignIn from './pages/signin.js';
 import Login from './pages/login.js';
 import Filter from './pages/filter.js';
 import RestaurantCard from './pages/rest_card.js';
+import NotesCard from './pages/notes_card.js';
+import LikedDisliked from './pages/profile_restaurants';
 
 function App() {
   // Sample fetch from the backend API
@@ -24,7 +26,7 @@ function App() {
 
   return (
     <Router>
-      <Navbar />
+      <Navbar isLoggedIn={true}/>
       <Routes>
         <Route path="/" exact element={<Login />} /><Route/>
         <Route path="/about" element={<About/>} /><Route/>
@@ -34,6 +36,8 @@ function App() {
         <Route path="/login" element={<Login/>} /><Route/>
         <Route path="/filter" element={<Filter />} /><Route/>
         <Route path="/rest_card" element={<RestaurantCard />} /><Route/>
+        <Route path="/notes_card" element={<NotesCard />} /><Route/>
+        <Route path="/profile_restaurants" element={<LikedDisliked />} /><Route/>
       </Routes>
     </Router>
   );

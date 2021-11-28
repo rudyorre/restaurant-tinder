@@ -9,18 +9,12 @@ import cowlick from '../images/avatar_Cowlick.png'
 import shell from '../images/avatar_Shell.png'
 import sleep from '../images/avatar_Sleep.png'
 import wiggle from '../images/avatar_Wiggle.png'
+
 import './profile.css'
 import axios from 'axios'
 
 
 //Username in document.cookie
-
-
-var user={
-    username: "Yurae",
-    password: "password",
-    image: '../images/app_logo.png'
-};
 
 class Profile extends React.Component{
     constructor(props){
@@ -40,7 +34,6 @@ class Profile extends React.Component{
         axios
           .get("http://localhost:3001/find/User/" + this.state.username)
           .then((response) => {
-            console.log(response)
             this.setState({
                 avatar: response.data[0].avatar,
                 image: choices[response.data[0].avatar -1],
@@ -87,18 +80,23 @@ class Profile extends React.Component{
         return;
     }
 
+    logoutCookie(){
+        document.cookie.split(";").forEach(function(c) { document.cookie = c.replace(/^ +/, "").replace(/=.*/, "=;expires=" + new Date().toUTCString() + ";path=/"); });
+        console.log(document.cookie)
+    } 
+
 
     render(){
         return(
             <div style ={{display: 'flex', justifyContent:'center'}}>
             <Card style={{ width: '25rem'}}>
                 <Card.Body>
-                    <Card.Title className='title'><h1>Scramble! Profile</h1></Card.Title>
+                    <Card.Title className='title'><h1> Scramble! Profile</h1><p>Username: {this.state.email}</p></Card.Title>
                     <Card.Img variant="top" src={this.state.image}/>
                     <br/>
                     <br/>
                     <section>
-                        <h4>Avatar Selection</h4>
+                        <h3>Avatar Selection</h3>
                         <ButtonGroup  type="radio" name="options" defaultValue={1}>
                             <Button className ="image-button" id="chirp" value={1} onClick={() => this.handleAvatar(1)}> 1 Chirp</Button>
                             <Button className ="image-button"id="wiggle" value={2} onClick={() => this.handleAvatar(2)}> 2 Wiggle</Button>
@@ -107,16 +105,13 @@ class Profile extends React.Component{
                             <Button className ="image-button" id="shell" value={5} onClick={() => this.handleAvatar(5)}> 5 Shell</Button>
                         </ButtonGroup>
                     </section>
-                    <br/>
-
-                        <Card.Text>
-                            Email: {this.state.email}
-                        </Card.Text>
+                    <hr/>
                         
                     <ButtonGroup>
                         <Link to="/filter"><Button className="image-button">Liked/Disliked Restaurants</Button></Link>
                         <Link to="/filter"><Button className="image-button">User Filter Profiles</Button></Link>
                     </ButtonGroup>
+                    <Link to="/signin"><Button variant = "link" onClick={()=> this.logoutCookie()}>Sign Out</Button></Link>
                 </Card.Body>
             </Card>
         </div>
