@@ -22,6 +22,34 @@ class LikedDisliked extends React.Component {
     this.setState({
       showLiked: value == 'liked' ? true : false,
     });
+
+
+    let getLiked = function(){
+      return axios.get("http://localhost:3001/find/status/" + "karl" + 
+      "/" + "left").then(response => {return response.data})
+    };
+
+    let Liked = getLiked();
+    Liked.then(function(result){
+      const arr = [];
+
+      for (let i = 0; i < result.length; i++){
+          arr.push(result[i].alias)
+      }
+
+      var Likes = arr.toString();
+      console.log(Likes);
+      return Likes;
+
+    }).then(Likes => {
+      this.setState({
+      Liked: Likes,
+      })
+    }).then(
+      console.log(this.state.Liked)
+    );
+
+
   };
 
   render() {
