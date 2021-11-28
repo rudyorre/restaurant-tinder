@@ -38,7 +38,7 @@ class Filter extends React.Component {
             latitude: '',
             longitude: '',
             distance: '8046.72',
-            username: '',
+            username: document.cookie,
             time: '',
             isOpen: false
         };
@@ -97,9 +97,13 @@ class Filter extends React.Component {
     }
 
     handleSubmit(event) {
-        var jstring = JSON.stringify(this.state);
 
-        console.log(this.state)
+        var jstring = JSON.stringify(this.state);
+        this.setState({
+            username: document.cookie
+        })
+        alert('document.cookie ' + document.cookie)
+        alert(this.state)
         axios
             .post("http://localhost:3001/record/Filter/",this.state)
 

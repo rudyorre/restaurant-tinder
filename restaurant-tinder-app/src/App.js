@@ -8,6 +8,7 @@ import About from './pages/about';
 import Profile from './pages/profile.js';
 import SignUp from './pages/signup.js';
 import SignIn from './pages/signin.js';
+import Login from './pages/login.js';
 import Filter from './pages/filter.js';
 import RestaurantCard from './pages/rest_card.js';
 
@@ -25,11 +26,12 @@ function App() {
     <Router>
       <Navbar />
       <Routes>
-        <Route path="/" exact element={<SignIn />} /><Route/>
+        <Route path="/" exact element={<Login />} /><Route/>
         <Route path="/about" element={<About/>} /><Route/>
         <Route path="/profile" element={<Profile/>} /><Route/>
         <Route path="/signin" element={<SignIn/>} /><Route/>
         <Route path="/sign-up" element={<SignUp/>} /><Route/>
+        <Route path="/login" element={<Login/>} /><Route/>
         <Route path="/filter" element={<Filter />} /><Route/>
         <Route path="/rest_card" element={<RestaurantCard />} /><Route/>
       </Routes>

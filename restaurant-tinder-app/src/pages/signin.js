@@ -43,13 +43,17 @@ class SignIn extends React.Component {
             else
             {
                 //it was valid input, so do stuff
+                alert('userinfo.username: ' + userinfo.username);
+                document.cookie.split(";").forEach(function(c) { document.cookie = c.replace(/^ +/, "").replace(/=.*/, "=;expires=" + new Date().toUTCString() + ";path=/"); });
+                alert('document.cookie: ' + document.cookie);
                 document.cookie = userinfo.username;
                 window.location.href = "http://localhost:3000/filter";
+                alert('document.cookie: ' + document.cookie);
             }
 
         })
 
-        alert(jsonString);
+        // alert(jsonString);
         event.preventDefault();
     }
 

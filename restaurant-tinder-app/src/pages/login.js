@@ -1,7 +1,7 @@
 import React from 'react';
-import "./App.css";
+// import "./App.css";
 import styled from "styled-components";
-import { AccountBox } from "./components/accountBox";
+import { AccountBox } from "../components/accountBox";
 
 
 const AppContainer = styled.div`
@@ -13,9 +13,10 @@ const AppContainer = styled.div`
   justify-content: center;
 `;
 
-function App() {
+function Login() {
   return (
     <AppContainer>
+      <br/>
       <AccountBox />
     </AppContainer>
   );

@@ -4,7 +4,7 @@ import axios from 'axios';
 import { Container, Row, Col, Card, CardGroup, Button } from 'react-bootstrap';
 import 'bootstrap/dist/css/bootstrap.min.css';
 
-
+// TODO: randomizer button to randomize list of filters
 
 class FilterList extends React.Component {
 
@@ -17,22 +17,39 @@ class FilterList extends React.Component {
     }
 
     componentDidMount() {
-        axios.get("http://localhost:3001/find/Filters/rudyorre")
+        axios.get("http://localhost:3001/find/Filters/" + document.cookie)
         .then((response) => response.data)
         .then(filterList => {
-            console.log(filterList);
             this.setState({ filters: filterList });
+        });
+        this.randomizeFilters();
+    }
+
+    randomizeFilters() {
+        // Fisher-Yates Algorithm
+        // https://en.wikipedia.org/wiki/Fisher%E2%80%93Yates_shuffle
+        const shuffleArray = (array) => {
+            for (let i = array.length - 1; i > 0; i--) {
+                const j = Math.floor(Math.random() * (i + 1));
+                const temp = array[i];
+                array[i] = array[j];
+                array[j] = temp;
+            }
+        }
+        let filters = this.state.filters;
+        shuffleArray(filters);
+        this.setState({
+            filters: filters,
         });
     }
 
     render() {
-        console.log(this.state.filters.length);
         let string_list = "";
         for (let i = 0; i < this.state.filters.length; i++) {
             string_list += JSON.stringify(this.state.filters[i]);
         }
 
-        const filters = this.state.filters;
+        let filters = this.state.filters;
 
         const moves = filters.map((filter, index) => {
             return (
@@ -42,14 +59,6 @@ class FilterList extends React.Component {
             );
           });
 
-        const filter_cards = filters.map((filter, index) => {
-            return (
-                <li key={index}>
-                    
-                </li>
-            );
-        });
-        
         const stuff = [
             'Primary',
             'Secondary',
@@ -76,19 +85,59 @@ class FilterList extends React.Component {
         ));
 
 
+        
+        /*
+        name: '',
+        location: '',
+        term: '',
+        category: '',
+        price: '1',
+        latitude: '',
+        longitude: '',
+        distance: '8046.72',
+        */
+
+        const capitalize = ([first, ...rest]) => {
+            return first.toUpperCase() + rest.join('');
+        };
+
+        const getTitle = (filter) => {
+            if (filter.name) return filter.name;
+            if (filter.category.length > 0) {
+                return filter.category.map(e => capitalize(e)).join(', ');
+            }
+            return 'Unnamed';
+        };
+
         return (
             <center>
                 <Row xs={1} md={3} className="g-4" style={{ margin: '10px' }}>
                     {filters.map((filter, idx) => (
                         <Col>
-                        <Card style={{ position: 'relative', margin: '0px' }}>
-                            <Card.Img variant="top" src="holder.js/100px160" />
+                        <Card style={{ position: 'relative', margin: '0px'}}>
+                            <Card.Img
+                                variant="top"
+                                src="https://s3-media2.fl.yelpcdn.com/bphoto/axO_FH4VwDYcPQOuabFi6g/o.jpg"
+                                style={{
+                                    width: '100%',
+                                    height: '15vw',
+                                    objectFit: 'cover',
+                                }}
+                            />
                             <Card.Body>
-                            <Card.Title>{filter.category}</Card.Title>
-                            <Card.Text>
-                                This is a longer card with supporting text below as a natural
-                                lead-in to additional content. This content is a little bit longer.
-                            </Card.Text>
+                                <Card.Title>{getTitle(filter)}</Card.Title>
+                                <Card.Text>
+                                    {filter.category ? 'true' : 'false'}
+                                    name: '',<br/>
+                                    location: '',
+                                    term: '',
+                                    category: '',
+                                    price: '1',
+                                    latitude: '',
+                                    longitude: '',
+                                    distance: '8046.72',
+                                </Card.Text>
+                                <Button variant="primary" onClick={this.randomizeFilters}>Find food</Button>
                             </Card.Body>
                         </Card>
                         </Col>
