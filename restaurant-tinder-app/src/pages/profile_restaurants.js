@@ -90,12 +90,12 @@ class LikedDisliked extends React.Component {
         
         <div>
           <br />
-          <ImageList cols={3} sx={{ width: 750, height: '80%' }}>
+          <ImageList cols={3} sx={{ width: 800, height: '80%' }}>
             {this.state.restaurants?.map((restaurant) => (
               <ImageListItem key={restaurant.img}>
                 <img
-                  src={`${restaurant.img}?w=248&h=100&fit=crop&auto=format`}
-                  srcSet={`${restaurant.img}?w=248&h=100&fit=crop&auto=format&dpr=2 2x`}
+                  src={`${restaurant.img}?w=248&fit=crop&auto=format`}
+                  srcSet={`${restaurant.img}?w=28&fit=crop&auto=format&dpr=2 2x`}
                   alt={restaurant.name}
                   loading="lazy"
                 />
