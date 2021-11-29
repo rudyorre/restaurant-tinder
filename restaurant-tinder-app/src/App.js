@@ -15,18 +15,10 @@ import NotesCard from './pages/notes_card.js';
 import LikedDisliked from './pages/profile_restaurants';
 
 function App() {
-  // Sample fetch from the backend API
-  // fetch("http://localhost:3001/restaurants")
-  //   .then((res) => res.json())
-  //   .then((json) => {
-  //       console.log(json);
-  //       document.getElementById("test").innerHTML = json;
-  // })
-  const [filter, setFilter] = useState(" ");
+  const [filter, setFilter] = useState("default");
   
-  function setFilterValue(filter) {
-    setFilter(filter);
-    console.log(filter);
+  function setFilterValue(filterValue) {
+    setFilter(filterValue);
   }
 
   return (
@@ -40,7 +32,7 @@ function App() {
         <Route path="/sign-up" element={<SignUp/>} /><Route/>
         <Route path="/login" element={<Login/>} /><Route/>
         <Route path="/filter" element={<Filter setFilterValue={setFilterValue}/>} /><Route/>
-        <Route path="/rest_card" element={<RestaurantCard />} /><Route/>
+        <Route path="/rest_card" element={<RestaurantCard filterValue={filter} />} /><Route/>
         <Route path="/notes_card" element={<NotesCard />} /><Route/>
         <Route path="/profile_restaurants" element={<LikedDisliked />} /><Route/>
       </Routes>
