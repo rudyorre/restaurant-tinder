@@ -34,7 +34,7 @@ class FilterList extends React.Component {
             this.setState({ filters: filterList });
         });
     }
-
+    
     handleSubmit(filter) {
         console.log("FUNCTION")
         console.log(filter)
