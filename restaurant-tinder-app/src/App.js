@@ -16,9 +16,14 @@ import LikedDisliked from './pages/profile_restaurants';
 
 function App() {
   const [filter, setFilter] = useState("default");
+  const [indRestaurant, setRestaurant] = useState("restaurant");
   
   function setFilterValue(filterValue) {
     setFilter(filterValue);
+  }
+
+  function setIndRestaurant(restValue) {
+    setRestaurant(restValue);
   }
 
   return (
@@ -31,10 +36,10 @@ function App() {
         <Route path="/signin" element={<SignIn/>} /><Route/>
         <Route path="/sign-up" element={<SignUp/>} /><Route/>
         <Route path="/login" element={<Login/>} /><Route/>
-        <Route path="/filter" element={<Filter setFilterValue={setFilterValue}/>} /><Route/>
+        <Route path="/filter" element={<Filter setFilterValue={setFilterValue} />} /><Route/>
         <Route path="/rest_card" element={<RestaurantCard filterValue={filter} />} /><Route/>
-        <Route path="/notes_card" element={<NotesCard />} /><Route/>
-        <Route path="/profile_restaurants" element={<LikedDisliked />} /><Route/>
+        <Route path="/profile_restaurants" element={<LikedDisliked setIndRestaurant={setIndRestaurant} />} /><Route/>
+        <Route path="/notes_card" element={<NotesCard indRestaurantValue={indRestaurant} />} /><Route/>
       </Routes>
     </Router>
   );
