@@ -43,17 +43,37 @@ app.get('/categories', (req, res) => {
 
 // GET route for custom search of restauarants list
 app.get('/restaurants', (req, res) => {
-  // **Extract parameters from req for search**
-  client.search({
-    term: 'asian',
-    location: 'los angeles, ca',
-    radius: 2000,
-    categories: 'asian',
-    price: 2,
-    // open_at: 1636138800,
+  // DEBUG: Check that queries exist
+  console.log("--------");
+  console.log(req.query.term);
+  console.log(req.query.location);
+  console.log(req.query.latitude);
+  console.log(req.query.longitude);
+  console.log(req.query.radius);
+  console.log(req.query.categories);
+  console.log(req.query.price);
+  console.log("--------");
+
+  // Create search object
+  let searchObj = {
+    term: req.query.term,
+    radius: parseInt(req.query.radius),
+    categories: req.query.categories,
+    price: parseInt(req.query.price),
     limit: 50,
-  }).then(response => {
-    // res.send(response.jsonBody);
+  }
+
+  // Set location or lat/long params
+  if (req.query.location) {
+    searchObj.location = req.query.location;
+  } else {
+    searchObj.latitude = parseInt(req.query.latitude);
+    searchObj.longitude = parseInt(req.query.longitude);
+  }
+
+  // Extract parameters from req for search
+  client.search(searchObj).then(response => {
+    // Parse out relevant yelp restaurant data to be displayed in card
     res.send(response.jsonBody.businesses.map(x => ({
       key: x.alias,
       title: x.name,
@@ -74,24 +94,23 @@ app.get('/restaurants', (req, res) => {
 
 // GET route for details on a single restuarant
 app.get('/detail', (req, res) => {
-  // **Extract restaurant from req to get more detail**
-  client.business('northern-cafe-los-angeles').then(response => {
+  // Extract restaurant from req to get more detail
+  client.business(req.query.alias).then(response => {
     const obj = response.jsonBody;
     let ans = {};
 
     // Send back desired data about restaurant
-    ans.alias = obj.alias;
-    ans.name = obj.name;
-    ans.image_url = obj.image_url;
-    ans.url = obj.url;
-    ans.display_phone = obj.display_phone;
-    ans.rating = obj.rating;
-    ans.review_count = obj.review_count;
-    ans.categories = obj.categories;
-    ans.location = obj.location.display_address;
+    ans.key = obj.alias;
+    ans.title = obj.name;
+    ans.image = obj.image_url;
+    ans.link = obj.url;
+    ans.phone = obj.display_phone;
+    ans.stars = obj.rating;
+    ans.reviews = obj.review_count;
+    ans.categories = obj.categories.map(c => c.title);
+    ans.address = obj.location.display_address[0] + ", " + obj.location.display_address[1],
     ans.price = obj.price;
-    ans.hours = obj.hours;
-    ans.transactions = obj.transactions;
+    ans.transactions = obj.transactions.map(t => t.split('_').join(' ')),
 
     res.send(JSON.stringify(ans));
   }).catch(e => {
