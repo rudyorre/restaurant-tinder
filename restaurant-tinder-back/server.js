@@ -54,17 +54,27 @@ app.get('/restaurants', (req, res) => {
   console.log(req.query.price);
   console.log("--------");
 
-  // Extract parameters from req for search
-  client.search({
+  // Create search object
+  let searchObj = {
     term: req.query.term,
-    location: req.query.location,
-    latitude: parseInt(req.query.latitude),
-    longitude: parseInt(req.query.longitude),
     radius: parseInt(req.query.radius),
     categories: req.query.categories,
     price: parseInt(req.query.price),
     limit: 50,
-  }).then(response => {
+  }
+
+  // Set location or lat/long params
+  if (req.query.location) {
+    searchObj.location = req.query.location;
+  } else {
+    searchObj.latitude = parseInt(req.query.latitude);
+    searchObj.longitude = parseInt(req.query.longitude);
+  }
+
+  console.log(searchObj)
+
+  // Extract parameters from req for search
+  client.search(searchObj).then(response => {
     // Parse out relevant yelp restaurant data to be displayed in card
     res.send(response.jsonBody.businesses.map(x => ({
       key: x.alias,
