@@ -6,3 +6,20 @@ h1 {
 input[type="radio"]{
     margin: 15px;
 }
+
+.imageLabel {
+    width: 360px;
+    border-top-left-radius: 20px;
+    border-top-right-radius: 20px;
+}
+
+.imageRest {
+    object-fit: cover;
+    height: 260px;
+    width: 360px;
+    border-radius: 20px;
+}
+
+.likeDislikeLabel {
+    margin-left: -5px;
+}

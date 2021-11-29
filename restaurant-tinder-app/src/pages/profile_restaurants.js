@@ -4,6 +4,7 @@ import ImageListItem from '@mui/material/ImageListItem'
 import ImageListItemBar from '@mui/material/ImageListItemBar'
 import './profile_restaurants.css'
 import axios from 'axios'
+import { Link } from "react-router-dom";
 import { FaThemeisle } from 'react-icons/fa';
 
 
@@ -60,12 +61,15 @@ class LikedDisliked extends React.Component {
     return (
       <div style={{
         display: 'flex',
-        justifyContent: 'center',
-        height: '100vh'
+        justifyContent: 'start',
+        alignItems: 'center',
+        flexDirection: 'column',
+        height: '100vh',
+        marginTop: '10px'
       }}>
         <br />
-        <div>
-          <h1>My Restaurants</h1>
+        <h1 style={{display: 'inline'}}>My Restaurants</h1>
+        <div style={{marginRight: '50px'}}>
           <label>
             <input
               type="radio"
@@ -73,36 +77,38 @@ class LikedDisliked extends React.Component {
               value="liked"
               onChange={this.handleChange}
             />
-            Liked
+            <span className="likeDislikeLabel">Liked</span>
           </label>
-          <label>
+          <label style={{marginLeft: '20px'}}>
             <input
               type="radio"
               name="restaurantlist"
               value="disliked"
               onChange={this.handleChange}
             />
-            Disliked
+            <span className="likeDislikeLabel">Disliked</span>
           </label>
         </div>
-
-        <hr />
         
         <div>
           <br />
-          <ImageList cols={3} sx={{ width: 800, height: '80%' }}>
+          <ImageList cols={3} sx={{ width: '1300px', height: '1000px' }}>
             {this.state.restaurants?.map((restaurant) => (
-              <ImageListItem key={restaurant.img}>
-                <img
-                  src={`${restaurant.img}?w=248&fit=crop&auto=format`}
-                  srcSet={`${restaurant.img}?w=28&fit=crop&auto=format&dpr=2 2x`}
-                  alt={restaurant.name}
-                  loading="lazy"
-                />
+              <ImageListItem key={restaurant.img} style={{marginBottom: '20px'}}>
+                <Link to="/notes_card" variant="primary" onClick={() => {console.log("hello")}} style={{width: '360px'}}>
+                  <img
+                    src={`${restaurant.img}?w=248&h=100&fit=crop&auto=format`}
+                    srcSet={`${restaurant.img}?w=248&h=100&fit=crop&auto=format&dpr=2 2x`}
+                    alt={restaurant.name}
+                    loading="lazy"
+                    className="imageRest"
+                  />
+                </Link>
                 <ImageListItemBar
-                  title={restaurant.name}
+                  title={<span style={{fontWeight: 'bold'}}>{restaurant.name}</span>}
                   subtitle={<span>{restaurant.address}</span>}
-                  position="below"
+                  position=""
+                  className="imageLabel"
                 />
               </ImageListItem>
             ))}
