@@ -40,9 +40,12 @@ class LikedDisliked extends React.Component {
     results.then(function(result) {
       for (let i = 0; i < result.length; i++) {
           let restAttributes = {
+            alias: result[i].alias,
             name: result[i].name,
             img: result[i].image,
             address: result[i].address,
+            order: result[i].order,
+            status: result[i].status,
           }
           arr.push(restAttributes);
       }
@@ -58,6 +61,10 @@ class LikedDisliked extends React.Component {
   };
 
   render() {
+    const handleIndRestaurant = (list) => {
+      this.props.setIndRestaurant(list);
+    }
+
     return (
       <div style={{
         display: 'flex',
@@ -95,7 +102,7 @@ class LikedDisliked extends React.Component {
           <ImageList cols={3} sx={{ width: '1300px', height: '1000px' }}>
             {this.state.restaurants?.map((restaurant) => (
               <ImageListItem key={restaurant.img} style={{marginBottom: '20px'}}>
-                <Link to="/notes_card" variant="primary" onClick={() => {console.log("hello")}} style={{width: '360px'}}>
+                <Link to="/notes_card" variant="primary" onClick={() => handleIndRestaurant([restaurant.alias, restaurant.order, restaurant.status])} style={{width: '360px'}}>
                   <img
                     src={`${restaurant.img}?w=248&h=100&fit=crop&auto=format`}
                     srcSet={`${restaurant.img}?w=248&h=100&fit=crop&auto=format&dpr=2 2x`}
