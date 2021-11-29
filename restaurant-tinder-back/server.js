@@ -71,8 +71,6 @@ app.get('/restaurants', (req, res) => {
     searchObj.longitude = parseInt(req.query.longitude);
   }
 
-  console.log(searchObj)
-
   // Extract parameters from req for search
   client.search(searchObj).then(response => {
     // Parse out relevant yelp restaurant data to be displayed in card
@@ -96,24 +94,23 @@ app.get('/restaurants', (req, res) => {
 
 // GET route for details on a single restuarant
 app.get('/detail', (req, res) => {
-  // **Extract restaurant from req to get more detail**
-  client.business('northern-cafe-los-angeles').then(response => {
+  // Extract restaurant from req to get more detail
+  client.business(req.query.alias).then(response => {
     const obj = response.jsonBody;
     let ans = {};
 
     // Send back desired data about restaurant
-    ans.alias = obj.alias;
-    ans.name = obj.name;
-    ans.image_url = obj.image_url;
-    ans.url = obj.url;
-    ans.display_phone = obj.display_phone;
-    ans.rating = obj.rating;
-    ans.review_count = obj.review_count;
-    ans.categories = obj.categories;
-    ans.location = obj.location.display_address;
+    ans.key = obj.alias;
+    ans.title = obj.name;
+    ans.image = obj.image_url;
+    ans.link = obj.url;
+    ans.phone = obj.display_phone;
+    ans.stars = obj.rating;
+    ans.reviews = obj.review_count;
+    ans.categories = obj.categories.map(c => c.title);
+    ans.address = obj.location.display_address[0] + ", " + obj.location.display_address[1],
     ans.price = obj.price;
-    ans.hours = obj.hours;
-    ans.transactions = obj.transactions;
+    ans.transactions = obj.transactions.map(t => t.split('_').join(' ')),
 
     res.send(JSON.stringify(ans));
   }).catch(e => {
