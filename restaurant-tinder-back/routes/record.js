@@ -51,11 +51,11 @@ recordRoutes.route("/record/Filter").post(function (req, response) {
     let myobj = {
       location: req.body.location,
       term: req.body.term,
-      category: req.body.category,
+      categories: req.body.categories,
       price: req.body.price,
       latitude: req.body.latitude,
       longitude: req.body.longitude,
-      distance: req.body.distance,
+      radius: req.body.radius,
       username: req.body.username,
     };
     db_connect.collection("Filter").insertOne(myobj, function (err, res) {
@@ -89,6 +89,15 @@ recordRoutes.route("/find/Filters/:username").get(function (req, res) {
         .collection("Filter")
         .find(myquery).toArray(function (err, result) {
           if (err) throw err;
+          const shuffleArray = (array) => {
+            for (let i = array.length - 1; i > 0; i--) {
+                const j = Math.floor(Math.random() * (i + 1));
+                const temp = array[i];
+                array[i] = array[j];
+                array[j] = temp;
+            }
+          }
+          shuffleArray(result);
           res.json(result);
         });
   });

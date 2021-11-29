@@ -43,17 +43,39 @@ app.get('/categories', (req, res) => {
 
 // GET route for custom search of restauarants list
 app.get('/restaurants', (req, res) => {
-  // **Extract parameters from req for search**
-  client.search({
-    term: 'asian',
-    location: 'los angeles, ca',
-    radius: 2000,
-    categories: 'asian',
-    price: 2,
-    // open_at: 1636138800,
+  // DEBUG: Check that queries exist
+  console.log("--------");
+  console.log(req.query.term);
+  console.log(req.query.location);
+  console.log(req.query.latitude);
+  console.log(req.query.longitude);
+  console.log(req.query.radius);
+  console.log(req.query.categories);
+  console.log(req.query.price);
+  console.log("--------");
+
+  // Create search object
+  let searchObj = {
+    term: req.query.term,
+    radius: parseInt(req.query.radius),
+    categories: req.query.categories,
+    price: parseInt(req.query.price),
     limit: 50,
-  }).then(response => {
-    // res.send(response.jsonBody);
+  }
+
+  // Set location or lat/long params
+  if (req.query.location) {
+    searchObj.location = req.query.location;
+  } else {
+    searchObj.latitude = parseInt(req.query.latitude);
+    searchObj.longitude = parseInt(req.query.longitude);
+  }
+
+  console.log(searchObj)
+
+  // Extract parameters from req for search
+  client.search(searchObj).then(response => {
+    // Parse out relevant yelp restaurant data to be displayed in card
     res.send(response.jsonBody.businesses.map(x => ({
       key: x.alias,
       title: x.name,

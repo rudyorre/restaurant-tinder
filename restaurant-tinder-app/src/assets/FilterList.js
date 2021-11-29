@@ -4,6 +4,8 @@ import axios from 'axios';
 import { Container, Row, Col, Card, CardGroup, Button } from 'react-bootstrap';
 import 'bootstrap/dist/css/bootstrap.min.css';
 
+import { Link } from "react-router-dom";
+
 // TODO: randomizer button to randomize list of filters
 
 class FilterList extends React.Component {
@@ -17,17 +19,6 @@ class FilterList extends React.Component {
     }
 
     componentDidMount() {
-        axios.get("http://localhost:3001/find/Filters/" + document.cookie)
-        .then((response) => response.data)
-        .then(filterList => {
-            this.setState({ filters: filterList });
-        });
-        this.randomizeFilters();
-    }
-
-    randomizeFilters() {
-        // Fisher-Yates Algorithm
-        // https://en.wikipedia.org/wiki/Fisher%E2%80%93Yates_shuffle
         const shuffleArray = (array) => {
             for (let i = array.length - 1; i > 0; i--) {
                 const j = Math.floor(Math.random() * (i + 1));
@@ -36,11 +27,17 @@ class FilterList extends React.Component {
                 array[j] = temp;
             }
         }
-        let filters = this.state.filters;
-        shuffleArray(filters);
-        this.setState({
-            filters: filters,
+        axios.get("http://localhost:3001/find/Filters/" + document.cookie)
+        .then((response) => response.data)
+        // .then(filterList => shuffleArray(filterList))
+        .then(filterList => {
+            this.setState({ filters: filterList });
         });
+    }
+
+    handleSubmit(filter) {
+        console.log("FUNCTION")
+        console.log(filter)
     }
 
     render() {
@@ -90,11 +87,11 @@ class FilterList extends React.Component {
         name: '',
         location: '',
         term: '',
-        category: '',
+        categories: '',
         price: '1',
         latitude: '',
         longitude: '',
-        distance: '8046.72',
+        radius: '8046.72',
         */
 
         const capitalize = ([first, ...rest]) => {
@@ -103,11 +100,16 @@ class FilterList extends React.Component {
 
         const getTitle = (filter) => {
             if (filter.name) return filter.name;
-            if (filter.category.length > 0) {
-                return filter.category.map(e => capitalize(e)).join(', ');
+            if (filter.categories.length > 0) {
+                return filter.categories.map(e => capitalize(e)).join(', ');
             }
             return 'Unnamed';
         };
+
+        const handleSubmit = (filter) => {
+            this.props.setFilterValue(filter);
+            // redirect
+        }
 
         return (
             <center>
@@ -127,17 +129,17 @@ class FilterList extends React.Component {
                             <Card.Body>
                                 <Card.Title>{getTitle(filter)}</Card.Title>
                                 <Card.Text>
-                                    {filter.category ? 'true' : 'false'}
+                                    {filter.categories ? 'true' : 'false'}
                                     name: '',<br/>
                                     location: '',
                                     term: '',
-                                    category: '',
+                                    categories: '',
                                     price: '1',
                                     latitude: '',
                                     longitude: '',
-                                    distance: '8046.72',
+                                    radius: '8046.72',
                                 </Card.Text>
-                                <Button variant="primary" onClick={this.randomizeFilters}>Find food</Button>
+                                <Link to="/rest_card" variant="primary" onClick={() => handleSubmit(filter)}>Find food</Link>
                             </Card.Body>
                         </Card>
                         </Col>
