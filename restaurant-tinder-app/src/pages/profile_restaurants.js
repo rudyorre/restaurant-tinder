@@ -6,12 +6,13 @@ import './profile_restaurants.css'
 import axios from 'axios'
 import { FaThemeisle } from 'react-icons/fa';
 
+//empty array to contain restaurants to display
+const arr = [];
+
 class LikedDisliked extends React.Component {
   constructor(props) {
     super(props);
     this.state = {
-      username: '',
-      restaurants: {},
       showLiked: true,
     };
   }
@@ -33,27 +34,26 @@ class LikedDisliked extends React.Component {
       "/" + "left").then(response => {return response.data})
     };
 
+    arr.splice(0, arr.length);
     let results = this.state.showLiked ? getLiked() : getDisliked();
 
-    results.then(function(result){
-      const arr = [];
-
-      for (let i = 0; i < result.length; i++){
-          arr.push(result[i].alias)
+    results.then(function(result) {
+      for (let i = 0; i < result.length; i++) {
+          let restAttributes = {
+            name: result[i].name,
+            img: result[i].image,
+            address: result[i].address,
+          }
+          arr.push(restAttributes);
       }
 
-      var Likes = arr.toString();
-      console.log(Likes);
-      return Likes;
-
-    }).then(Likes => {
+    }).then(arr => {
       this.setState({
-        restaurants: Likes,
+        restaurants: arr,
       })
     }).then(
-      console.log(this.state.Liked)
+      console.log(this.state.restaurants)
     );
-
 
   };
 
@@ -93,17 +93,17 @@ class LikedDisliked extends React.Component {
         <div>
           <br />
           <ImageList sx={{ width: 550, height: '80%' }}>
-            {itemData.map((item) => (
-              <ImageListItem key={item.img}>
+            {arr?.map((restaurant) => (
+              <ImageListItem key={restaurant.img}>
                 <img
-                  src={`${item.img}?w=248&fit=crop&auto=format`}
-                  srcSet={`${item.img}?w=248&fit=crop&auto=format&dpr=2 2x`}
-                  alt={item.title}
+                  src={`${restaurant.img}?w=248&fit=crop&auto=format`}
+                  srcSet={`${restaurant.img}?w=248&fit=crop&auto=format&dpr=2 2x`}
+                  alt={restaurant.name}
                   loading="lazy"
                 />
                 <ImageListItemBar
-                  title={item.title}
-                  subtitle={<span>{item.address}</span>}
+                  title={restaurant.name}
+                  subtitle={<span>{restaurant.address}</span>}
                   position="below"
                 />
               </ImageListItem>
