@@ -91,6 +91,14 @@
     margin-top: 100px;
 }
 
+.eggQuestion {
+    display: flex;
+    align-content: center;
+    justify-content: center;
+    width: 200px;
+    margin-top: 0;
+}
+
 .bgImage {
     width: 300px;
     display: flex;
@@ -156,4 +164,15 @@
     margin-top: 30px;
     width: 400px;
     font-style: italic;
+}
+
+.errorLabel {
+    margin-top: 30px;
+}
+
+#error {
+    justify-content: center;
+    align-items: center;
+    margin-top: -100px;
+    display: none;
 }
