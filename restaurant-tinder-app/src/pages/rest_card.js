@@ -120,6 +120,7 @@ function RestaurantCard(props) {
         status: direction,
         name: restaurant.title,
         address: restaurant.address,
+        image: restaurant.image,
         order: "Write your restaurant order here!"
       };
       
