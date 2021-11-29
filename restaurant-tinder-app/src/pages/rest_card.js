@@ -115,7 +115,7 @@ function RestaurantCard(props) {
       // console.log("direction: " + direction);
 
       let obj = {
-        username: "karl"/*document.cookies*/,
+        username: document.cookie, //'karl'
         alias: restaurant.key,
         status: direction,
         name: restaurant.title,
@@ -167,7 +167,7 @@ function RestaurantCard(props) {
             <BackgroundCard id="bgcard" />
 
             {restaurants.map((restaurant, index) => (
-              <TinderCard ref={childRefs[index]} flickOnSwipe={true} onSwipe={(dir) => swiped(dir, restaurant, index)} onCardLeftScreen={() => onCardLeftScreen(index)} style={{width: '1000px', height: '550px'}}>
+              <TinderCard key={restaurant.alias} ref={childRefs[index]} flickOnSwipe={true} onSwipe={(dir) => swiped(dir, restaurant, index)} onCardLeftScreen={() => onCardLeftScreen(index)} style={{width: '1000px', height: '550px'}}>
                 <div id={"container-" + index} className="wrapper card rest_card">
                   <div className="row">
                     <div className="column">
