@@ -1,8 +1,8 @@
 h1 {
     white-space: pre;
-    margin: 10px
+    margin: 10px 40px 10px 0px;
 }
 
 input[type="radio"]{
-    margin: 25px;
+    margin: 15px;
 }
