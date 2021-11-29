@@ -78,28 +78,28 @@ function RestaurantCard(props) {
       if (filter == 'default') {
         document.getElementById('error').style.display = "flex";
         document.getElementById('load').style.display = "none";
-      }
-
       // Call api endpoint with parameters
-      axios.get("http://localhost:3001/restaurants", {
-        params: {
-          term: filter.term,
-          categories: filter.categories,
-          location: filter.location,
-          latitude: filter.latitude,
-          longitude: filter.longitude,
-          price: filter.price,
-          radius: filter.radius
-        }}
-      ).then((response) => {
-        let restList = response.data;
-        restList = restList.sort(() => Math.random() - 0.5)
+      } else {
+        axios.get("http://localhost:3001/restaurants", {
+          params: {
+            term: filter.term,
+            categories: filter.categories,
+            location: filter.location,
+            latitude: filter.latitude,
+            longitude: filter.longitude,
+            price: filter.price,
+            radius: filter.radius
+          }}
+        ).then((response) => {
+          let restList = response.data;
+          restList = restList.sort(() => Math.random() - 0.5)
 
-        setRestaurants(restList);
-        setCurrentIndex(restList.length-1);
-        document.getElementById('load').style.display = "none";
-        document.getElementById('cardContainer').style.justifyContent = "start";
-      });
+          setRestaurants(restList);
+          setCurrentIndex(restList.length-1);
+          document.getElementById('load').style.display = "none";
+          document.getElementById('cardContainer').style.justifyContent = "start";
+        });
+      }
     }, []);
 
     // Update next index to current
@@ -167,7 +167,7 @@ function RestaurantCard(props) {
             <BackgroundCard id="bgcard" />
 
             {restaurants.map((restaurant, index) => (
-              <TinderCard key={restaurant.alias} ref={childRefs[index]} flickOnSwipe={true} onSwipe={(dir) => swiped(dir, restaurant, index)} onCardLeftScreen={() => onCardLeftScreen(index)} style={{width: '1000px', height: '550px'}}>
+              <TinderCard key={index} ref={childRefs[index]} flickOnSwipe={true} onSwipe={(dir) => swiped(dir, restaurant, index)} onCardLeftScreen={() => onCardLeftScreen(index)} style={{width: '1000px', height: '550px'}}>
                 <div id={"container-" + index} className="wrapper card rest_card">
                   <div className="row">
                     <div className="column">
@@ -197,12 +197,12 @@ function RestaurantCard(props) {
                       <h5 className="subHeader">{restaurant.phone}</h5>
                       <div className="row subHeader">
                         {!restaurant.transactions ? '' : restaurant.transactions.map((transaction, index) => (
-                          <Transaction name={transaction.split('_')}></Transaction>
+                          <Transaction key={index} name={transaction.split('_')}></Transaction>
                         ))}
                       </div>
                       <div className="row">
                         {!restaurant.categories ? '' : restaurant.categories.map((category, index) => (
-                          <Category name={category}></Category>
+                          <Category key={index} name={category}></Category>
                         ))}
                       </div>
 
