@@ -36,7 +36,7 @@ function BackgroundCard() {
   );
 }
 
-function RestaurantCard() {
+function RestaurantCard(props) {
     // Set indices for restaurants
     const [currentIndex, setCurrentIndex] = useState(0);
     const currentIndexRef = useRef(currentIndex);
@@ -53,7 +53,20 @@ function RestaurantCard() {
 
     // Make fetch to api to populate restaraunts list
     React.useEffect(() => {
-      axios.get("http://localhost:3001/restaurants").then((response) => {
+      const filter = props.filterValue;
+
+      // Call api endpoint with parameters
+      axios.get("http://localhost:3001/restaurants", {
+        params: {
+          term: filter.term,
+          categories: filter.categories,
+          location: filter.location,
+          latitude: filter.latitude,
+          longitude: filter.longitude,
+          price: filter.price,
+          radius: filter.radius
+        }}
+      ).then((response) => {
         let restList = response.data;
         restList = restList.sort(() => Math.random() - 0.5)
 
