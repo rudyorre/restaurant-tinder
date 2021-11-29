@@ -23,14 +23,19 @@ class LikedDisliked extends React.Component {
       showLiked: value == 'liked' ? true : false,
     });
 
-
     let getLiked = function(){
-      return axios.get("http://localhost:3001/find/status/" + "karl" + 
+      return axios.get("http://localhost:3001/find/status/" + document.cookie + 
+      "/" + "right").then(response => {return response.data})
+    };
+
+    let getDisliked = function(){
+      return axios.get("http://localhost:3001/find/status/" + document.cookie + 
       "/" + "left").then(response => {return response.data})
     };
 
-    let Liked = getLiked();
-    Liked.then(function(result){
+    let results = this.state.showLiked ? getLiked() : getDisliked();
+
+    results.then(function(result){
       const arr = [];
 
       for (let i = 0; i < result.length; i++){
@@ -43,7 +48,7 @@ class LikedDisliked extends React.Component {
 
     }).then(Likes => {
       this.setState({
-      Liked: Likes,
+        restaurants: Likes,
       })
     }).then(
       console.log(this.state.Liked)
@@ -67,7 +72,6 @@ class LikedDisliked extends React.Component {
               type="radio"
               name="restaurantlist"
               value="liked"
-              //checked={this.state.showLiked=true}
               onChange={this.handleChange}
               defaultChecked
             />
@@ -78,7 +82,6 @@ class LikedDisliked extends React.Component {
               type="radio"
               name="restaurantlist"
               value="disliked"
-              //checked={this.state.showLiked=false}
               onChange={this.handleChange}
             />
             Disliked
@@ -89,7 +92,7 @@ class LikedDisliked extends React.Component {
         
         <div>
           <br />
-          <ImageList sx={{ width: 800, height: 550 }}>
+          <ImageList sx={{ width: 550, height: '80%' }}>
             {itemData.map((item) => (
               <ImageListItem key={item.img}>
                 <img
@@ -100,7 +103,7 @@ class LikedDisliked extends React.Component {
                 />
                 <ImageListItemBar
                   title={item.title}
-                  subtitle={<span>by: {item.author}</span>}
+                  subtitle={<span>{item.address}</span>}
                   position="below"
                 />
               </ImageListItem>
