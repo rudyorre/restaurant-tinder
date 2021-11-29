@@ -149,7 +149,7 @@ function RestaurantCard(props) {
 
       // If there are still cards, then swipe
       if (childRefs && currentIndex <= restaurants.length) {
-        await childRefs[currentIndex].current.swipe(dir); // Swipe the card!
+        childRefs[currentIndex].current.swipe(dir); // Swipe the card!
         console.log('You swiped: ' + dir);
       }
     }
