@@ -33,11 +33,11 @@ class Filter extends React.Component {
             name: '',
             location: '',
             term: '',
-            category: '',
+            categories: '',
             price: '1',
             latitude: '',
             longitude: '',
-            distance: '8046.72',
+            radius: '8046.72',
             username: document.cookie,
             time: '',
             isOpen: false
@@ -86,13 +86,13 @@ class Filter extends React.Component {
         let miles = value * 0.25;
         let meters = miles * 1609.34;
         this.setState({
-            distance: meters
+            radius: meters
         });
     }
 
-    handleCategory = (value) => {
+    handlecategories = (value) => {
         this.setState({
-            category: value
+            categories: value
         })
     }
 
@@ -117,9 +117,9 @@ class Filter extends React.Component {
 
     render() {
         // const [isOpen, setOverlay] = useState(false);
-        // category dropdown variables
+        // categories dropdown variables
         const options = getCategories();
-        let categoryValue = this.state.category;
+        let categoriesValue = this.state.categories;
 
         const closeOverlay = () => this.setOverlay(false);
 
@@ -142,7 +142,7 @@ class Filter extends React.Component {
                 </button>
 
                 <Overlay configs={configs} isOpen={this.state.isOpen} closeOverlay={closeOverlay}>
-                    <h2>Sample header</h2>
+                    <h2>Filters</h2>
                     <div>
                 <div>
                     <form onSubmit={this.handleSubmit}>
@@ -153,10 +153,26 @@ class Filter extends React.Component {
                                     <div class="row">
                                         {/*<div class="col-2">
                                             <i class="fa fa-chevron-left"></i>
-                                        </div>*/}
+                                        </div>
                                         <div class="col-10" id="fs_page_title">
                                             Filters
-                                        </div>
+                                        </div>*/}
+                                    </div>
+                                </section>
+
+                                <section class="col-12" id="fs_price_body">
+                                    <span class="heading">
+                                        Name
+                                    </span>
+                                    <div class="row">
+                                        <label>
+                                            <input
+                                                type="text"
+                                                name="name"
+                                                placeholder="Enter Custom Name"
+                                                onChange={this.handleChange}
+                                            />
+                                        </label>
                                     </div>
                                 </section>
 
@@ -165,7 +181,7 @@ class Filter extends React.Component {
                                             Location
                                         </span>
                                     <div class="row">
-                                        <div class="col-6">
+                                        <div class="col-5">
                                             <label>
                                                 <input
                                                     type="text"
@@ -175,12 +191,21 @@ class Filter extends React.Component {
                                                 />
                                             </label>
                                         </div>
-                                        <div class="col-4 active">
+                                        <div class="col-2">
+                                            <div style={{margin: 'auto',  width: '50%'}}>
+                                                OR
+                                            </div>
+                                        </div>
+                                        <div class={this.state.latitude == '' ? "col-5" : "col-5 active"}>
                                             <button
                                                     class="btn"
                                                     type="button"
                                                     name="coordinate"
                                                     value="1"
+                                                    style={{
+                                                        marginTop: '0px',
+                                                        marginBottom: '0px',
+                                                    }}
                                                     onClick={this.handleCoordinates}
                                             >Use Your Location</button>
                                         </div>
@@ -208,7 +233,7 @@ class Filter extends React.Component {
                                 <section class="col-12">
                                     <div>
                                         <span class="heading">
-                                            Category
+                                            categories
                                         </span>
                                         <div class="row">
                                             <SelectSearch
@@ -217,9 +242,9 @@ class Filter extends React.Component {
                                                 search
                                                 printOptions="on-focus"
                                                 filterOptions={fuzzySearch}
-                                                placeholder="Select your category"
-                                                value={categoryValue}
-                                                onChange={value => this.handleCategory(value)}
+                                                placeholder="Select your categories"
+                                                value={categoriesValue}
+                                                onChange={value => this.handlecategories(value)}
                                             />
                                         </div>
                                     </div>
@@ -271,9 +296,9 @@ class Filter extends React.Component {
                                     </div>
                                 </section>
 
-                                <section class="col-12" id="fs_distance_body">
+                                <section class="col-12" id="fs_radius_body">
                                     <span class="heading">
-                                        By Distance
+                                        By radius
                                     </span>
                                     <div>
                                         <ul>
@@ -306,16 +331,6 @@ class Filter extends React.Component {
                                     />
                                     <br/>
                                 </section>
-                                <section class="col-12">
-                                    <label>
-                                        <input
-                                            type="text"
-                                            name="username"
-                                            placeholder="Enter username"
-                                            onChange={this.handleChange}
-                                        />
-                                    </label>
-                                </section>
                             </div>
                         </div>
                         <input type="submit" value="Submit" />
@@ -334,7 +349,7 @@ class Filter extends React.Component {
                     </Overlay>
 
             
-                    <FilterList />
+                    <FilterList setFilterValue={this.props.setFilterValue}/>
             </div>
         );
     }

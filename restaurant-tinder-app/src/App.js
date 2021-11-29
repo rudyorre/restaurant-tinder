@@ -1,5 +1,5 @@
 import logo from './logo.svg';
-import React from "react";
+import React, { useState } from "react";
 import './App.css';
 import Navbar from "./components/Navbar";
 import { BrowserRouter as Router, Routes, Route } from "react-router-dom";
@@ -22,7 +22,12 @@ function App() {
   //       console.log(json);
   //       document.getElementById("test").innerHTML = json;
   // })
-
+  const [filter, setFilter] = useState(" ");
+  
+  function setFilterValue(filter) {
+    setFilter(filter);
+    console.log(filter);
+  }
 
   return (
     <Router>
@@ -34,7 +39,7 @@ function App() {
         <Route path="/signin" element={<SignIn/>} /><Route/>
         <Route path="/sign-up" element={<SignUp/>} /><Route/>
         <Route path="/login" element={<Login/>} /><Route/>
-        <Route path="/filter" element={<Filter />} /><Route/>
+        <Route path="/filter" element={<Filter setFilterValue={setFilterValue}/>} /><Route/>
         <Route path="/rest_card" element={<RestaurantCard />} /><Route/>
         <Route path="/notes_card" element={<NotesCard />} /><Route/>
         <Route path="/profile_restaurants" element={<LikedDisliked />} /><Route/>
