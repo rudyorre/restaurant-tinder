@@ -108,7 +108,7 @@ class Profile extends React.Component{
                     <hr/>
                         
                     <ButtonGroup>
-                        <Link to="/filter"><Button className="image-button">Liked/Disliked Restaurants</Button></Link>
+                        <Link to="/profile_restaurants"><Button className="image-button">Liked/Disliked Restaurants</Button></Link>
                         <Link to="/filter"><Button className="image-button">User Filter Profiles</Button></Link>
                     </ButtonGroup>
                     <Link to="/login"><Button variant = "link" onClick={()=> this.logoutCookie()}>Sign Out</Button></Link>

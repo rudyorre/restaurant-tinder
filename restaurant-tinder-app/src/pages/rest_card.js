@@ -8,6 +8,7 @@ import dislike from '../images/dislike.png';
 import yelp from '../images/yelp.png';
 import gudetama from '../images/gudetama.png';
 import eggLoad from '../images/egg_load.gif'
+import eggQuestion from '../images/egg_question.gif'
 
 function Category(props) {
   return (
@@ -25,6 +26,25 @@ function Transaction(props) {
   );
 }
 
+function LoadCard() {
+  return (
+    <div id="load">
+      <img className="eggLoad" src={eggLoad} alt="loading..." />
+    </div>
+  );
+}
+
+function ErrorCard() {
+  return (
+    <div id="error" className="column">
+      <a href="http://localhost:3000/filter" className="bgLink">
+        <img className="eggQuestion" src={eggQuestion} alt="error..." />
+      </a>
+      <h3 className="errorLabel">you need to set a filter profile</h3>
+    </div>
+  );
+}
+
 function BackgroundCard() {
   return (
     <div id="bgcard" style={{display: 'none'}}>
@@ -36,7 +56,7 @@ function BackgroundCard() {
   );
 }
 
-function RestaurantCard() {
+function RestaurantCard(props) {
     // Set indices for restaurants
     const [currentIndex, setCurrentIndex] = useState(0);
     const currentIndexRef = useRef(currentIndex);
@@ -53,15 +73,33 @@ function RestaurantCard() {
 
     // Make fetch to api to populate restaraunts list
     React.useEffect(() => {
-      axios.get("http://localhost:3001/restaurants").then((response) => {
-        let restList = response.data;
-        restList = restList.sort(() => Math.random() - 0.5)
-
-        setRestaurants(restList);
-        setCurrentIndex(restList.length-1);
+      const filter = props.filterValue;
+      // Disable error card if restaurant filter profile is NOT available
+      if (filter == 'default') {
+        document.getElementById('error').style.display = "flex";
         document.getElementById('load').style.display = "none";
-        document.getElementById('cardContainer').style.justifyContent = "start";
-      });
+      // Call api endpoint with parameters
+      } else {
+        axios.get("http://localhost:3001/restaurants", {
+          params: {
+            term: filter.term,
+            categories: filter.categories,
+            location: filter.location,
+            latitude: filter.latitude,
+            longitude: filter.longitude,
+            price: filter.price,
+            radius: filter.radius
+          }}
+        ).then((response) => {
+          let restList = response.data;
+          restList = restList.sort(() => Math.random() - 0.5)
+
+          setRestaurants(restList);
+          setCurrentIndex(restList.length-1);
+          document.getElementById('load').style.display = "none";
+          document.getElementById('cardContainer').style.justifyContent = "start";
+        });
+      }
     }, []);
 
     // Update next index to current
@@ -77,11 +115,12 @@ function RestaurantCard() {
       // console.log("direction: " + direction);
 
       let obj = {
-        username: "karl"/*document.cookies*/,
+        username: document.cookie, //'karl'
         alias: restaurant.key,
         status: direction,
         name: restaurant.title,
         address: restaurant.address,
+        image: restaurant.image,
         order: "Write your restaurant order here!"
       };
       
@@ -109,8 +148,8 @@ function RestaurantCard() {
       }
 
       // If there are still cards, then swipe
-      if (currentIndex <= restaurants.length) {
-        await childRefs[currentIndex].current.swipe(dir) // Swipe the card!
+      if (childRefs && currentIndex <= restaurants.length) {
+        childRefs[currentIndex].current.swipe(dir); // Swipe the card!
         console.log('You swiped: ' + dir);
       }
     }
@@ -123,12 +162,12 @@ function RestaurantCard() {
     return (
         <div className="restCardContainer">
           <div id='cardContainer'> 
-            <div id="load">
-              <img className="eggLoad" src={eggLoad} alt="loading..." />
-            </div>
-            <BackgroundCard id="bgcard"></BackgroundCard>
+            <LoadCard />
+            <ErrorCard />
+            <BackgroundCard id="bgcard" />
+
             {restaurants.map((restaurant, index) => (
-              <TinderCard ref={childRefs[index]} flickOnSwipe={true} onSwipe={(dir) => swiped(dir, restaurant, index)} onCardLeftScreen={() => onCardLeftScreen(index)} style={{width: '1000px', height: '550px'}}>
+              <TinderCard key={index} ref={childRefs[index]} flickOnSwipe={true} onSwipe={(dir) => swiped(dir, restaurant, index)} onCardLeftScreen={() => onCardLeftScreen(index)} style={{width: '1000px', height: '550px'}}>
                 <div id={"container-" + index} className="wrapper card rest_card">
                   <div className="row">
                     <div className="column">
@@ -158,12 +197,12 @@ function RestaurantCard() {
                       <h5 className="subHeader">{restaurant.phone}</h5>
                       <div className="row subHeader">
                         {!restaurant.transactions ? '' : restaurant.transactions.map((transaction, index) => (
-                          <Transaction name={transaction.split('_')}></Transaction>
+                          <Transaction key={index} name={transaction.split('_')}></Transaction>
                         ))}
                       </div>
                       <div className="row">
                         {!restaurant.categories ? '' : restaurant.categories.map((category, index) => (
-                          <Category name={category}></Category>
+                          <Category key={index} name={category}></Category>
                         ))}
                       </div>
 

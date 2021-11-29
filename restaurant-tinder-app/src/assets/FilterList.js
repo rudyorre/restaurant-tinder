@@ -4,6 +4,8 @@ import axios from 'axios';
 import { Container, Row, Col, Card, CardGroup, Button } from 'react-bootstrap';
 import 'bootstrap/dist/css/bootstrap.min.css';
 
+import { Link } from "react-router-dom";
+
 // TODO: randomizer button to randomize list of filters
 
 class FilterList extends React.Component {
@@ -31,6 +33,11 @@ class FilterList extends React.Component {
         .then(filterList => {
             this.setState({ filters: filterList });
         });
+    }
+
+    handleSubmit(filter) {
+        console.log("FUNCTION")
+        console.log(filter)
     }
 
     render() {
@@ -132,7 +139,7 @@ class FilterList extends React.Component {
                                     longitude: '',
                                     radius: '8046.72',
                                 </Card.Text>
-                                <Button variant="primary" onClick={() => this.props.setFilterValue(filter)}>Find food</Button>
+                                <Link to="/rest_card" variant="primary" onClick={() => handleSubmit(filter)}>Find food</Link>
                             </Card.Body>
                         </Card>
                         </Col>
