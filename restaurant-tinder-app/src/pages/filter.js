@@ -102,12 +102,19 @@ class Filter extends React.Component {
         this.setState({
             username: document.cookie
         })
-        alert('document.cookie ' + document.cookie)
-        alert(this.state)
-        axios
-            .post("http://localhost:3001/record/Filter/",this.state)
-
-        alert(jstring);
+        axios.post("http://localhost:3001/record/Filter/",this.state)
+        const filter = {
+            name: this.state.name,
+            location: this.state.location,
+            term: this.state.term,
+            categories: this.state.categories,
+            price: this.state.price,
+            latitude: this.state.latitude,
+            longitude: this.state.longitude,
+            radius: this.state.radus,
+            username: this.state.username,
+        }
+        this.props.setFilterValue(filter);
         event.preventDefault();
     }
 

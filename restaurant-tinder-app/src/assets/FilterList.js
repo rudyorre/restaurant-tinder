@@ -33,10 +33,6 @@ class FilterList extends React.Component {
         });
     }
 
-    handleSubmit(filter) {
-        console.log(filter)
-    }
-
     render() {
         let string_list = "";
         for (let i = 0; i < this.state.filters.length; i++) {
@@ -136,7 +132,7 @@ class FilterList extends React.Component {
                                     longitude: '',
                                     radius: '8046.72',
                                 </Card.Text>
-                                <Button variant="primary" onClick={() => handleSubmit(filter)}>Find food</Button>
+                                <Button variant="primary" onClick={() => this.props.setFilterValue(filter)}>Find food</Button>
                             </Card.Body>
                         </Card>
                         </Col>
