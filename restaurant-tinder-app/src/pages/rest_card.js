@@ -8,6 +8,7 @@ import dislike from '../images/dislike.png';
 import yelp from '../images/yelp.png';
 import gudetama from '../images/gudetama.png';
 import eggLoad from '../images/egg_load.gif'
+import eggQuestion from '../images/egg_question.gif'
 
 function Category(props) {
   return (
@@ -21,6 +22,25 @@ function Transaction(props) {
   return (
     <div className="transaction">
       {props.name}
+    </div>
+  );
+}
+
+function LoadCard() {
+  return (
+    <div id="load">
+      <img className="eggLoad" src={eggLoad} alt="loading..." />
+    </div>
+  );
+}
+
+function ErrorCard() {
+  return (
+    <div id="error" className="column">
+      <a href="http://localhost:3000/filter" className="bgLink">
+        <img className="eggQuestion" src={eggQuestion} alt="error..." />
+      </a>
+      <h3 className="errorLabel">you need to set a filter profile</h3>
     </div>
   );
 }
@@ -54,6 +74,11 @@ function RestaurantCard(props) {
     // Make fetch to api to populate restaraunts list
     React.useEffect(() => {
       const filter = props.filterValue;
+      // Disable error card if restaurant filter profile is NOT available
+      if (filter == 'default') {
+        document.getElementById('error').style.display = "flex";
+        document.getElementById('load').style.display = "none";
+      }
 
       // Call api endpoint with parameters
       axios.get("http://localhost:3001/restaurants", {
@@ -122,8 +147,8 @@ function RestaurantCard(props) {
       }
 
       // If there are still cards, then swipe
-      if (currentIndex <= restaurants.length) {
-        await childRefs[currentIndex].current.swipe(dir) // Swipe the card!
+      if (childRefs && currentIndex <= restaurants.length) {
+        await childRefs[currentIndex].current.swipe(dir); // Swipe the card!
         console.log('You swiped: ' + dir);
       }
     }
@@ -136,10 +161,10 @@ function RestaurantCard(props) {
     return (
         <div className="restCardContainer">
           <div id='cardContainer'> 
-            <div id="load">
-              <img className="eggLoad" src={eggLoad} alt="loading..." />
-            </div>
-            <BackgroundCard id="bgcard"></BackgroundCard>
+            <LoadCard />
+            <ErrorCard />
+            <BackgroundCard id="bgcard" />
+
             {restaurants.map((restaurant, index) => (
               <TinderCard ref={childRefs[index]} flickOnSwipe={true} onSwipe={(dir) => swiped(dir, restaurant, index)} onCardLeftScreen={() => onCardLeftScreen(index)} style={{width: '1000px', height: '550px'}}>
                 <div id={"container-" + index} className="wrapper card rest_card">
