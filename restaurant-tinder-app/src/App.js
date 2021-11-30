@@ -1,5 +1,5 @@
 import logo from './logo.svg';
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import './App.css';
 import Navbar from "./components/Navbar";
 import { BrowserRouter as Router, Routes, Route } from "react-router-dom";
@@ -25,6 +25,10 @@ function App() {
   function setIndRestaurant(restValue) {
     setRestaurant(restValue);
   }
+
+  useEffect(() => {
+    document.title = "Scramble"
+  }, [])
 
   return (
     <Router>

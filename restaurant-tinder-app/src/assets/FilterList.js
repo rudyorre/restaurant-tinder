@@ -5,6 +5,7 @@ import { Container, Row, Col, Card, CardGroup, Button } from 'react-bootstrap';
 import 'bootstrap/dist/css/bootstrap.min.css';
 
 import { Link } from "react-router-dom";
+import { dividerClasses } from '@mui/material';
 
 // TODO: randomizer button to randomize list of filters
 
@@ -106,6 +107,62 @@ class FilterList extends React.Component {
             return 'Unnamed';
         };
 
+        const getBody = (filter) => {
+            let location;
+            let foodType;
+            let price = {
+                '1': '$',
+                '2': '$$',
+                '3': '$$$',
+                '4': '$$$$',
+            }[filter.price]
+
+            if (filter.location) {
+                location = filter.location;
+            } else if (filter.longitude && filter.latitude) {
+                location = filter.latitude + ' ' + filter.longitude;
+            } else {
+                location = "No location";
+            }
+
+            
+            /*
+            .category {
+                background-color: #b5f1f5;
+                width: auto;
+                padding: 10px;
+                margin-left: 10px;
+                margin-right: 5px;
+                margin-bottom: 10px;
+                border-radius: 20px;
+            }*/
+
+
+
+
+            return <>{location}<br/>
+            {filter.term ? filter.term : 'No term'}<br/>
+            {price}<br/>
+            {!filter.categories ? 'No categories' : filter.categories.join(', ')}<br/>
+            {/*{!filter.categories ? '' : filter.categories.map((category, index) => (
+                <div
+                    style={{
+                        backgroundColor: '#b5f1f5',
+                        padding: '10px',
+                        marginLeft: '1px',
+                        marginRight: '5px',
+                        marginBottom: '10px',
+                        borderRadius: '20px',
+                    }}
+                    key={index}
+                    name={category}>Cate
+                </div>
+
+             ))}*/}<br/>
+            </>;
+
+        };
+
         const handleSubmit = (filter) => {
             this.props.setFilterValue(filter);
             // redirect
@@ -129,15 +186,7 @@ class FilterList extends React.Component {
                             <Card.Body>
                                 <Card.Title>{getTitle(filter)}</Card.Title>
                                 <Card.Text>
-                                    {filter.categories ? 'true' : 'false'}
-                                    name: '',<br/>
-                                    location: '',
-                                    term: '',
-                                    categories: '',
-                                    price: '1',
-                                    latitude: '',
-                                    longitude: '',
-                                    radius: '8046.72',
+                                    {getBody(filter)}
                                 </Card.Text>
                                 <Link to="/rest_card" variant="primary" onClick={() => handleSubmit(filter)}>Find food</Link>
                             </Card.Body>

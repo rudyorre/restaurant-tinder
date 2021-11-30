@@ -132,41 +132,48 @@ class Filter extends React.Component {
 
         const configs = {
             animate: true,
-            // clickDismiss: false,
-            // escapeDismiss: false,
-            // focusOutline: false,
+            clickDismiss: true,
+            escapeDismiss: true,
+            focusOutline: false,
         };
+
+        const CreateFilterProfile = <Button
+            className="primary"
+            style={{ marginLeft: '35%', width: '30%', marginRight: '35%' }}
+            onClick={() => {
+                this.setOverlay(true);
+            }}
+        >
+            Create Filter Profile
+        </Button>
 
         return (
             <div>
-                <button
-                    className="primary"
-                    onClick={() => {
-                        this.setOverlay(true);
-                    }}
-                >
-                    open modal
-                </button>
+                <div>
+                    <h1 className="alignment">Find Your Food!</h1>
+                    <p className="alignment_i">Pick a filter profile to start finding restaurants of any style!</p>
+                    <p className = "alignment">To create a custom filter profile and start swiping, click below:</p>
+                </div>
+                {CreateFilterProfile}
 
-                <Overlay configs={configs} isOpen={this.state.isOpen} closeOverlay={closeOverlay}>
+                <Overlay
+                    configs={configs}
+                    isOpen={this.state.isOpen}
+                    closeOverlay={closeOverlay}
+                    {...this.props}
+                        style={{
+                        borderRadius: 3,
+                        ...this.props.style,
+                        }}
+                >
+                    <div
+                    >
                     <h2>Filters</h2>
                     <div>
                 <div>
                     <form onSubmit={this.handleSubmit}>
                         <div class="container-fluid">
                             <div class="row" id="fs_app">
-
-                                <section class="col-12" id="fs_header_bar">
-                                    <div class="row">
-                                        {/*<div class="col-2">
-                                            <i class="fa fa-chevron-left"></i>
-                                        </div>
-                                        <div class="col-10" id="fs_page_title">
-                                            Filters
-                                        </div>*/}
-                                    </div>
-                                </section>
-
                                 <section class="col-12" id="fs_price_body">
                                     <span class="heading">
                                         Name
@@ -353,10 +360,13 @@ class Filter extends React.Component {
                     >
                         close modal
                     </button>
+                    </div>
                     </Overlay>
 
             
                     <FilterList setFilterValue={this.props.setFilterValue}/>
+                    <br/>
+                    {CreateFilterProfile}
             </div>
         );
     }
