@@ -25,3 +25,4 @@ yarn-error.log*
 
 # api key (WILL DEPRECATE LATER)
 .api_key.js
+package-lock.json

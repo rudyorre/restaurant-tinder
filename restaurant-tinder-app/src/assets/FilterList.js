@@ -16,23 +16,39 @@ class FilterList extends React.Component {
 
         this.state = {
             filters: [],
+            image_urls: [],
         }
     }
 
     componentDidMount() {
-        const shuffleArray = (array) => {
-            for (let i = array.length - 1; i > 0; i--) {
-                const j = Math.floor(Math.random() * (i + 1));
-                const temp = array[i];
-                array[i] = array[j];
-                array[j] = temp;
-            }
-        }
         axios.get("http://localhost:3001/find/Filters/" + document.cookie)
         .then((response) => response.data)
         // .then(filterList => shuffleArray(filterList))
         .then(filterList => {
             this.setState({ filters: filterList });
+            for (let i = 0; i < this.state.filters.length; i++) {
+                console.log(i);
+                // default image_url
+                let filter = this.state.filters[i];
+                axios.get("http://localhost:3001/restaurants/image", {
+                    params: {
+                        term: filter.term,
+                        categories: filter.categories,
+                        location: filter.location,
+                        latitude: filter.latitude,
+                        longitude: filter.longitude,
+                        price: filter.price,
+                        radius: filter.radius
+                    }})
+                .then((response) => {
+                    //let restList = response.data;
+                    // restList = restList.sort(() => Math.random() - 0.5)
+                    console.log(response.data);
+                    let urls = this.state.image_urls;
+                    urls[i] = response.data;
+                    this.setState({ image_urls: urls} );
+                });
+            }
         });
     }
     
@@ -167,6 +183,15 @@ class FilterList extends React.Component {
             this.props.setFilterValue(filter);
             // redirect
         }
+        
+        const getImage = (idx) => {
+            console.log(idx + ' ' + this.state.image_urls[idx]);
+            if (this.state.image_urls[idx]) {
+                return this.state.image_urls[idx];
+            } else {
+                return "https://backend.grindcitymedia.com/wp-content/uploads/2020/03/no-image-availabe.png";
+            }
+        }
 
         return (
             <center>
@@ -176,7 +201,7 @@ class FilterList extends React.Component {
                         <Card style={{ position: 'relative', margin: '0px'}}>
                             <Card.Img
                                 variant="top"
-                                src="https://s3-media2.fl.yelpcdn.com/bphoto/axO_FH4VwDYcPQOuabFi6g/o.jpg"
+                                src={getImage(idx)}
                                 style={{
                                     width: '100%',
                                     height: '15vw',
