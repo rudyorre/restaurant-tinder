@@ -36,6 +36,15 @@ class LikedDisliked extends React.Component {
       "/" + "left").then(response => {return response.data})
     };
 
+    const shuffleArray = (array) => {
+      for (let i = array.length - 1; i > 0; i--) {
+          const j = Math.floor(Math.random() * (i + 1));
+          const temp = array[i];
+          array[i] = array[j];
+          array[j] = temp;
+      }
+    }
+
     const arr = [];
     let results = value=='liked' ? getLiked() : getDisliked();
 
@@ -51,6 +60,7 @@ class LikedDisliked extends React.Component {
           }
           arr.push(restAttributes);
       }
+      shuffleArray(arr);
       return arr;
 
     }).then(arr => {
@@ -74,7 +84,7 @@ class LikedDisliked extends React.Component {
 
     document.body.scrollTop = document.documentElement.scrollTop = 0;
 
-    const restaurantList = this.state.restaurants
+    let restaurantList = this.state.restaurants
       .filter(d => this.state.textInput === '' || d.name.toLowerCase().includes(this.state.textInput.toLowerCase()));
 
     return (
