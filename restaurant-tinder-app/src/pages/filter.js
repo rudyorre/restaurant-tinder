@@ -148,7 +148,7 @@ class Filter extends React.Component {
         </Button>
 
         return (
-            <div>
+            <div style={{ marginLeft: '5%', marginRight: '5%' }}>
                 <div>
                     <h1 className="alignment">Find Your Food!</h1>
                     <p className="alignment_i">Pick a filter profile to start finding restaurants of any style!</p>

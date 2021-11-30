@@ -42,7 +42,6 @@ export function LoginForm(props) {
             document.cookie = username;
             window.location.href = "http://localhost:3000/filter";
         }
-
     });
   }
 

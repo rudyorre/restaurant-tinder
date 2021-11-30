@@ -191,33 +191,6 @@ class FilterList extends React.Component {
             } else {
                 return "https://backend.grindcitymedia.com/wp-content/uploads/2020/03/no-image-availabe.png";
             }
-            // return "https://s3-media2.fl.yelpcdn.com/bphoto/axO_FH4VwDYcPQOuabFi6g/o.jpg";
-            /*
-            let image_url = "https://s3-media2.fl.yelpcdn.com/bphoto/axO_FH4VwDYcPQOuabFi6g/o.jpg";
-            axios.get("http://localhost:3001/restaurants/image", {
-                params: {
-                    term: filter.term,
-                    categories: filter.categories,
-                    location: filter.location,
-                    latitude: filter.latitude,
-                    longitude: filter.longitude,
-                    price: filter.price,
-                    radius: filter.radius
-                }})
-            .then((response) => {
-                //let restList = response.data;
-                // restList = restList.sort(() => Math.random() - 0.5)
-                
-                console.log(response.data)
-                image_url = response.data;
-                // document.getElementById('load').style.display = "none";
-                // document.getElementById('cardContainer').style.justifyContent = "start";
-                return image_url;
-            });*/
-            //.then(image_url => return image_url);
-            //return image_url;
-            // return "https://s3-media3.fl.yelpcdn.com/bphoto/TMB02pQtqOwzXMm_oomjJw/o.jpg";
-            // return "https://s3-media2.fl.yelpcdn.com/bphoto/axO_FH4VwDYcPQOuabFi6g/o.jpg";
         }
 
         return (
