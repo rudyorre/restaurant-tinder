@@ -40,7 +40,7 @@ function App() {
             <Route path="/profile" element={<Profile/>} /><Route/>
             {/* <Route path="/signin" element={<SignIn/>} /><Route/>
             <Route path="/sign-up" element={<SignUp/>} /><Route/> */}
-            <Route path="/login" element={<Login/>} /><Route/>
+            {/* <Route path="/login" element={<Login/>} /><Route/> */}
             <Route path="/filter" element={<Filter setFilterValue={setFilterValue} />} /><Route/>
             <Route path="/rest_card" element={<RestaurantCard filterValue={filter} />} /><Route/>
             <Route path="/profile_restaurants" element={<LikedDisliked setIndRestaurant={setIndRestaurant} />} /><Route/>
