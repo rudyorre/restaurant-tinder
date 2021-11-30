@@ -14,6 +14,11 @@ import app_logo from '../../images/app_logo.png';
 
 const Navbar = (props) => {
     const isLoggedIn = props.isLoggedIn
+
+    if(window.location.pathname === "/login" || window.location.pathname === "/"){
+        return null
+    }
+
     if(isLoggedIn){
     return (
         <>
