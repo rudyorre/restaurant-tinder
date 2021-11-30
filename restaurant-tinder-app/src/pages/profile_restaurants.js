@@ -75,7 +75,7 @@ class LikedDisliked extends React.Component {
     document.body.scrollTop = document.documentElement.scrollTop = 0;
 
     const restaurantList = this.state.restaurants
-      .filter(d => this.state.textInput === '' || d.name.toLowerCase().includes(this.state.textInput));
+      .filter(d => this.state.textInput === '' || d.name.toLowerCase().includes(this.state.textInput.toLowerCase()));
 
     return (
       <div style={{
