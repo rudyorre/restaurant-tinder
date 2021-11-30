@@ -49,6 +49,7 @@ recordRoutes.route("/record/User").post(function (req, response) {
 recordRoutes.route("/record/Filter").post(function (req, response) {
     let db_connect = dbo.getDb();
     let myobj = {
+      name: req.body.name,
       location: req.body.location,
       term: req.body.term,
       categories: req.body.categories,
