@@ -62,7 +62,6 @@ function NotesCard(props) {
 
     // Handle change in restaurant order to store in db
     const handleChange = (event) => {
-        console.log(restaurant.address)
         let obj = {
             username: document.cookie,
             alias: restaurant.key,
