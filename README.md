@@ -32,11 +32,25 @@ npm install --save styled components
 npm install react-icons --save
 npm install react-tinder-card --save
 npm install react-rating-stars-component --save
+npm install @mui/material @emotion/react @emotion/styled
 npm start
 ```
 The source files will be in [`restaurant-tinder-app/src`](https://github.com/rudyorre/restaurant-tinder/tree/main/restaurant-tinder-app/src).  
 
-### Backend Setup 
+### Backend Setup
+```bash
+cd restaurant-tinder-back
+```
+Create a new file in this directory called ".env", which is used for storing environment variables.
+Then, go to the [`Yelp Fusion API`](https://www.yelp.com/developers/documentation/v3/get_started) and create an account.
+Click on "Create App" and fill out the parameters. Click "Create New App" at the bottom.
+This will generate a unique Client ID and API Key that will be used to fetch the restaurant data for your local app.
+Put the following two lines in .env and paste the two generated values:
+```.env
+REACT_APP_CLIENT_ID=<paste client id here>
+REACT_APP_API_KEY=<paste api key here>
+```
+Run the following bash commands to complete the backend setup.
 ```bash
 npm install
 node server.js
