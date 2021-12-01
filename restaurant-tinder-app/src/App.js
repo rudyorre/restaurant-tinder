@@ -3,6 +3,7 @@ import React, { useState, useEffect } from "react";
 import './App.css';
 import Navbar from "./components/Navbar";
 import { BrowserRouter as Router, Routes, Route } from "react-router-dom";
+import { Navigate } from "react-router";
 import Home from './pages';
 import About from './pages/about';
 import Profile from './pages/profile.js';
@@ -35,7 +36,7 @@ function App() {
       <Router>
         <Navbar isLoggedIn={true}/>
         <Routes>
-          <Route path="/" exact element={<Login />} /><Route/>
+            <Route path="/" exact element={<Login />} /><Route/>
             <Route path="/about" element={<About/>} /><Route/>
             <Route path="/profile" element={<Profile/>} /><Route/>
             {/* <Route path="/signin" element={<SignIn/>} /><Route/>
@@ -55,7 +56,7 @@ function App() {
         <Routes>
           <Route path="/" exact element={<Login />} /><Route/>
           <Route path="/login" element={<Login/>} /><Route/>
-          <Route path="*" element={<Login/>}></Route>
+          <Route path="*" element={<Navigate to="/login" />}></Route>
         </Routes>
       </Router>
     );
