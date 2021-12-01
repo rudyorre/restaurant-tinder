@@ -132,41 +132,50 @@ class Filter extends React.Component {
 
         const configs = {
             animate: true,
-            // clickDismiss: false,
-            // escapeDismiss: false,
-            // focusOutline: false,
+            clickDismiss: true,
+            escapeDismiss: true,
+            focusOutline: false,
         };
 
-        return (
-            <div>
-                <button
-                    className="primary"
-                    onClick={() => {
-                        this.setOverlay(true);
-                    }}
-                >
-                    open modal
-                </button>
+        const CreateFilterProfile = <Button
+            className="filterButton"
+            style={{ margin: '20px 40% 0 40%', width: '20%', color: '#313133', fontWeight: 'bold', borderRadius: '30px', padding: '5px 5px' }}
+            onClick={() => {
+                this.setOverlay(true);
+            }}
+        >
+            <span style={{fontSize: '20px', fontWeight: '600'}}>Create Filter Profile</span>
+        </Button>
 
-                <Overlay configs={configs} isOpen={this.state.isOpen} closeOverlay={closeOverlay}>
+        return (
+            <div style={{ marginLeft: '5%', marginRight: '5%', marginBottom: '20px' }}>
+                <div>
+                    <h1 className="alignment" style={{marginTop: '30px', marginBottom: '20px'}}>Find Your Food!</h1>
+                    <p style={{fontSize: '20px', marginBottom: '0'}} className="alignment_i">Pick a filter profile to start finding restaurants of any style!</p>
+                    {/* <p style={{fontSize: '20px'}} className = "alignment">To create a custom filter profile and start swiping, click below:</p> */}
+                </div>
+                <span style={{marginTop: '50px'}}>
+                {CreateFilterProfile}
+                </span>
+
+                <Overlay
+                    configs={configs}
+                    isOpen={this.state.isOpen}
+                    closeOverlay={closeOverlay}
+                    {...this.props}
+                        style={{
+                        borderRadius: 3,
+                        ...this.props.style,
+                        }}
+                >
+                    <div
+                    >
                     <h2>Filters</h2>
                     <div>
                 <div>
                     <form onSubmit={this.handleSubmit}>
                         <div class="container-fluid">
                             <div class="row" id="fs_app">
-
-                                <section class="col-12" id="fs_header_bar">
-                                    <div class="row">
-                                        {/*<div class="col-2">
-                                            <i class="fa fa-chevron-left"></i>
-                                        </div>
-                                        <div class="col-10" id="fs_page_title">
-                                            Filters
-                                        </div>*/}
-                                    </div>
-                                </section>
-
                                 <section class="col-12" id="fs_price_body">
                                     <span class="heading">
                                         Name
@@ -353,10 +362,13 @@ class Filter extends React.Component {
                     >
                         close modal
                     </button>
+                    </div>
                     </Overlay>
 
             
                     <FilterList setFilterValue={this.props.setFilterValue}/>
+                    <br/>
+                    {CreateFilterProfile}
             </div>
         );
     }

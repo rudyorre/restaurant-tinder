@@ -37,12 +37,16 @@ const Navbar = (props) => {
             <Bars />
 
             <NavMenu>
+                <NavLink to="/about" activestyle='true'>
+                    About
+                </NavLink>
+
                 <NavLink to="/filter" activestyle='true'>
                     Search
                 </NavLink>
 
-                <NavLink to="/about" activestyle='true'>
-                    About
+                <NavLink to="/profile_restaurants" activestyle='true'>
+                    Restaurants
                 </NavLink>
                 
                 <NavLink to="/Profile" activestyle='true'>

@@ -42,7 +42,6 @@ export function LoginForm(props) {
             document.cookie = username;
             window.location.href = "http://localhost:3000/filter";
         }
-
     });
   }
 
@@ -58,7 +57,7 @@ export function LoginForm(props) {
       <SubmitButton type="submit" onClick={handleClick}>Signin</SubmitButton>
       <Marginer direction="vertical" margin="1em" />
       <MutedLink href="#">
-        Don't have an accoun?{" "}
+        Don't have an account?{" "}
         <BoldLink href="#" onClick={switchToSignup}>
           Signup
         </BoldLink>

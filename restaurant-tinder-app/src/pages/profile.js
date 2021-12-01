@@ -80,7 +80,11 @@ class Profile extends React.Component{
         return;
     }
 
-    logoutCookie(){
+    logoutCookie() {
+        // Reset cookie to "default"
+        document.cookie.split(";").forEach(function(c) { document.cookie = c.replace(/^ +/, "").replace(/=.*/, "=;expires=" + new Date().toUTCString() + ";path=/"); });
+        document.cookie = "default";
+        console.log(document.cookie);
         window.location = "/login"
     } 
 
