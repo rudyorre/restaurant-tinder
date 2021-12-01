@@ -94,7 +94,7 @@ class LikedDisliked extends React.Component {
         alignItems: 'center',
         flexDirection: 'column',
         height: '100vh',
-        marginTop: '10px'
+        marginTop: '8px'
       }}>
         <br />
         <h1 style={{display: 'inline'}}>My Restaurants</h1>
