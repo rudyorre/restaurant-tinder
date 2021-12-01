@@ -140,23 +140,25 @@ class Filter extends React.Component {
         };
 
         const CreateFilterProfile = <Button
-            className="primary"
-            style={{ marginLeft: '35%', width: '30%', marginRight: '35%' }}
+            className="filterButton"
+            style={{ margin: '20px 40% 0 40%', width: '20%', color: '#313133', fontWeight: 'bold', borderRadius: '30px', padding: '5px 5px' }}
             onClick={() => {
                 this.setOverlay(true);
             }}
         >
-            Create Filter Profile
+            <span style={{fontSize: '20px', fontWeight: '600'}}>Create Filter Profile</span>
         </Button>
 
         return (
-            <div style={{ marginLeft: '5%', marginRight: '5%' }}>
+            <div style={{ marginLeft: '5%', marginRight: '5%', marginBottom: '20px' }}>
                 <div>
-                    <h1 className="alignment">Find Your Food!</h1>
-                    <p className="alignment_i">Pick a filter profile to start finding restaurants of any style!</p>
-                    <p className = "alignment">To create a custom filter profile and start swiping, click below:</p>
+                    <h1 className="alignment" style={{marginTop: '30px', marginBottom: '20px'}}>Find Your Food!</h1>
+                    <p style={{fontSize: '20px', marginBottom: '0'}} className="alignment_i">Pick a filter profile to start finding restaurants of any style!</p>
+                    {/* <p style={{fontSize: '20px'}} className = "alignment">To create a custom filter profile and start swiping, click below:</p> */}
                 </div>
+                <span style={{marginTop: '50px'}}>
                 {CreateFilterProfile}
+                </span>
 
                 <Overlay
                     configs={configs}

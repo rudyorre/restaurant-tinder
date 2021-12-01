@@ -26,6 +26,7 @@ class LikedDisliked extends React.Component {
   handleChange = e => {
     const { value } = e.target;
 
+    // functions that retrieve liked and disliked restaurants from backend
     let getLiked = function(){
       return axios.get("http://localhost:3001/find/status/" + document.cookie + 
       "/" + "right").then(response => {return response.data})
@@ -45,9 +46,10 @@ class LikedDisliked extends React.Component {
       }
     }
 
-    const arr = [];
     let results = value=='liked' ? getLiked() : getDisliked();
+    const arr = [];
 
+    // push data from each retrieved restaurant into array
     results.then(function(result) {
       for (let i = 0; i < result.length; i++) {
           let restAttributes = {
@@ -72,6 +74,7 @@ class LikedDisliked extends React.Component {
     );
   };
 
+  // initially check "Liked" restaurants option
   componentDidMount() {
     var liked = document.getElementById('likedCheck');
     liked.click();
@@ -94,7 +97,7 @@ class LikedDisliked extends React.Component {
         alignItems: 'center',
         flexDirection: 'column',
         height: '100vh',
-        marginTop: '10px'
+        marginTop: '8px'
       }}>
         <br />
         <h1 style={{display: 'inline'}}>My Restaurants</h1>
@@ -130,7 +133,7 @@ class LikedDisliked extends React.Component {
           </label>
         </div>
         
-        <div>
+        <div style={{marginLeft: '4.5%'}}>
           <br />
           <ImageList cols={3} sx={{ width: '1300px' }}>
             {restaurantList?.map((restaurant) => (

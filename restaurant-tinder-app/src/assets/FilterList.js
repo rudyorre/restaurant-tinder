@@ -85,11 +85,11 @@ class FilterList extends React.Component {
             ].map((variant, idx) => (
             <Card
                 key={idx}
-                style={{ position: 'relative', width: '30rem', marginBottom: '25px'  }}
+                style={{ position: 'relative', width: '30rem', marginBottom: '25px' }}
             >
-            <Card.Header as="h5">Featured</Card.Header>
+            <Card.Header as="h3">Featured</Card.Header>
             <Card.Body>
-              <Card.Title>Special title treatment</Card.Title>
+              <Card.Title style={{marginTop: '-10px'}}>Special title treatment</Card.Title>
               <Card.Text>
                 With supporting text below as a natural lead-in to additional content.
               </Card.Text>
@@ -115,6 +115,10 @@ class FilterList extends React.Component {
             return first.toUpperCase() + rest.join('');
         };
 
+        function strCapitalize(str) {
+            return str.charAt(0).toUpperCase() + str.slice(1);
+        }
+
         const getTitle = (filter) => {
             if (filter.name) return filter.name;
             if (filter.categories.length > 0) {
@@ -134,7 +138,7 @@ class FilterList extends React.Component {
             }[filter.price]
 
             if (filter.location) {
-                location = filter.location;
+                location = filter.location.split(' ').map(strCapitalize).join(' ');
             } else if (filter.longitude && filter.latitude) {
                 location = filter.latitude + ' ' + filter.longitude;
             } else {
@@ -157,9 +161,9 @@ class FilterList extends React.Component {
 
 
             return <>{location}<br/>
-            {filter.term ? filter.term : 'No term'}<br/>
+            {filter.term ? filter.term : 'none'}<br/>
             {price}<br/>
-            {!filter.categories ? 'No categories' : filter.categories.join(', ')}<br/>
+            {!filter.categories ? '' : filter.categories.map(e => capitalize(e)).join(', ')}<br/>
             {/*{!filter.categories ? '' : filter.categories.map((category, index) => (
                 <div
                     style={{
@@ -193,7 +197,7 @@ class FilterList extends React.Component {
                 <Row xs={1} md={3} className="g-4" style={{ margin: '10px' }}>
                     {filters.map((filter, idx) => (
                         <Col>
-                        <Card style={{ position: 'relative', margin: '0px'}}>
+                        <Card style={{ position: 'relative', margin: '0px', borderRadius: '30px'}}>
                             <Card.Img
                                 variant="top"
                                 src={getImage(idx)}
@@ -201,14 +205,17 @@ class FilterList extends React.Component {
                                     width: '100%',
                                     height: '15vw',
                                     objectFit: 'cover',
+                                    borderTopLeftRadius: '30px',
+                                    borderTopRightRadius: '30px'
                                 }}
                             />
-                            <Card.Body>
-                                <Card.Title>{getTitle(filter)}</Card.Title>
-                                <Card.Text>
+                            <Card.Body style={{backgroundColor: "rgb(255 255 253)", borderBottomLeftRadius: '30px', borderBottomRightRadius: '30px'}}>
+                                <Card.Title style={{fontWeight: 'bold', marginTop: '10px', fontSize: '30px'}}>{getTitle(filter)}</Card.Title>
+                                <Card.Text style={{fontSize: '20px'}}>
                                     {getBody(filter)}
                                 </Card.Text>
-                                <Link to="/rest_card" variant="primary" onClick={this.props.setFilterValue(filter)}>Find food</Link>
+                                {/*<Link to="/rest_card" variant="primary" onClick={this.props.setFilterValue(filter)}>Find food</Link>*/}
+                                <Link class="linkButton" to="/rest_card" variant="primary" onClick={this.props.setFilterValue(filter)}>Find food</Link>
                             </Card.Body>
                         </Card>
                         </Col>
