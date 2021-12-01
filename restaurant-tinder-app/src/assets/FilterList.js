@@ -178,11 +178,6 @@ class FilterList extends React.Component {
             </>;
 
         };
-
-        const handleSubmit = (filter) => {
-            this.props.setFilterValue(filter);
-            // redirect
-        }
         
         const getImage = (idx) => {
             console.log(idx + ' ' + this.state.image_urls[idx]);
@@ -213,7 +208,7 @@ class FilterList extends React.Component {
                                 <Card.Text>
                                     {getBody(filter)}
                                 </Card.Text>
-                                <Link to="/rest_card" variant="primary" onClick={() => handleSubmit(filter)}>Find food</Link>
+                                <Link to="/rest_card" variant="primary" onClick={this.props.setFilterValue(filter)}>Find food</Link>
                             </Card.Body>
                         </Card>
                         </Col>

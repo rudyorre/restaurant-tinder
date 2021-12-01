@@ -1,4 +1,5 @@
 import React, { useState } from 'react'
+import { Link } from "react-router-dom";
 import './filter.css';
 import '../../node_modules/font-awesome/css/font-awesome.min.css';
 import '../../node_modules/bootstrap/dist/css/bootstrap.min.css';
@@ -111,11 +112,12 @@ class Filter extends React.Component {
             price: this.state.price,
             latitude: this.state.latitude,
             longitude: this.state.longitude,
-            radius: this.state.radus,
+            radius: this.state.radius,
             username: this.state.username,
         }
+        console.log('handleSubmit: ' + filter);
         this.props.setFilterValue(filter);
-        event.preventDefault();
+        // event.preventDefault();
     }
 
     setOverlay(value) {
@@ -347,19 +349,12 @@ class Filter extends React.Component {
                                 </section>
                             </div>
                         </div>
-                        <input type="submit" value="Submit" />
+
+                        {<Link to="/rest_card" variant="primary" onClick={this.handleSubmit}>Find food</Link>}
+                        {/*<input type="submit" value="Submit" />*/}
                     </form>
                 </div>
                 </div>
-
-                    <button
-                        className="danger"
-                        onClick={() => {
-                            this.setOverlay(false);
-                        }}
-                    >
-                        close modal
-                    </button>
                     </div>
                     </Overlay>
 
