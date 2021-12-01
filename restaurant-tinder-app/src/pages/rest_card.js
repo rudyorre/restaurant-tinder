@@ -9,6 +9,7 @@ import yelp from '../images/yelp.png';
 import gudetama from '../images/gudetama.png';
 import eggLoad from '../images/egg_load.gif'
 import eggQuestion from '../images/egg_question.gif'
+import eggEmpty from '../images/egg_empty.gif'
 
 function Category(props) {
   return (
@@ -41,6 +42,17 @@ function ErrorCard() {
         <img className="eggQuestion" src={eggQuestion} alt="error..." />
       </a>
       <h3 className="errorLabel">you need to set a filter profile</h3>
+    </div>
+  );
+}
+
+function EmptyCard() {
+  return (
+    <div id="empty" className="column" style={{display: 'none'}}>
+      <a href="http://localhost:3000/filter" className="bgLink">
+        <img className="eggQuestion" src={eggEmpty} alt="error..." />
+      </a>
+      <h3 className="errorLabel" style={{marginTop: '5px'}}>this filter profile has no results</h3>
     </div>
   );
 }
@@ -98,6 +110,10 @@ function RestaurantCard(props) {
           setCurrentIndex(restList.length-1);
           document.getElementById('load').style.display = "none";
           document.getElementById('cardContainer').style.justifyContent = "start";
+
+          if (restList.length == 0) {
+            document.getElementById('empty').style.display = "flex";
+          }
         });
       }
     }, []);
@@ -164,6 +180,7 @@ function RestaurantCard(props) {
           <div id='cardContainer'> 
             <LoadCard />
             <ErrorCard />
+            <EmptyCard />
             <BackgroundCard id="bgcard" />
 
             {restaurants.map((restaurant, index) => (
