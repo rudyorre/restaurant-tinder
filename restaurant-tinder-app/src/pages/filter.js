@@ -102,7 +102,7 @@ class Filter extends React.Component {
 
     handleSlider = (value) => {
         let miles = value * 0.25;
-        let meters = miles * 1609.34;
+        let meters = Math.min(miles * 1609.34, 39999);
         this.setState({
             radius: meters
         });
@@ -123,24 +123,23 @@ class Filter extends React.Component {
     }
 
     handleSubmit(event) {
-
-        var jstring = JSON.stringify(this.state);
-
-
-        if (!this.state.location && (!this.state.longitude || !this.state.latitude)) {
-            //
-        }
-
-
+        
         this.setState({
             username: document.cookie,
             triedSubmitting: true,
         })
-        axios.post("http://localhost:3001/record/Filter/",this.state)
-        const filter = this.getFilter();
-        console.log('handleSubmit: ' + filter);
-        this.props.setFilterValue(filter);
+
         // event.preventDefault();
+        if (this.state.location || (this.state.longitude && this.state.latitude)) {
+            axios.post("http://localhost:3001/record/Filter/",this.state)
+            const filter = this.getFilter();
+            console.log('handleSubmit: ' + filter);
+            this.props.setFilterValue(filter);
+            this.setState({
+                isOpen: false,
+            });
+            window.location.reload();
+        }
     }
 
     setOverlay(value) {
@@ -376,13 +375,15 @@ class Filter extends React.Component {
                         </div>
                         {   
                             ((!this.state.location && (!this.state.longitude || !this.state.latitude) || !this.state.name) && this.state.triedSubmitting) ?
-                            <div style={{color: 'red'}}>oops error</div> :
+                            <div style={{color: 'red'}}>Name and Location is required.</div> :
                             <div></div>
+                            
                         }
+                        <br/>
                         {
                         (!this.state.location && (!this.state.longitude || !this.state.latitude) || !this.state.name) ? 
-                        <Link to="/filter" className="disabledCursor" variant="primary" onClick={this.handleSubmit}>Find food</Link> :
-                        <Link to="/rest_card" className="notDisabled" variant="primary" onClick={this.handleSubmit}>Find food</Link>
+                        <Link class="linkButton" to="/filter"  variant="primary" onClick={this.handleSubmit}>Create!</Link> :
+                        <Link class="linkButton" to="/filter"  variant="primary" onClick={this.handleSubmit}>Create!</Link>
                         }
                         {/*<input type="submit" value="Submit" />*/}
                         {

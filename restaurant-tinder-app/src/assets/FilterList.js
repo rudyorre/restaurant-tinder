@@ -98,19 +98,6 @@ class FilterList extends React.Component {
           </Card>
         ));
 
-
-        
-        /*
-        name: '',
-        location: '',
-        term: '',
-        categories: '',
-        price: '1',
-        latitude: '',
-        longitude: '',
-        radius: '8046.72',
-        */
-
         const capitalize = ([first, ...rest]) => {
             return first.toUpperCase() + rest.join('');
         };
