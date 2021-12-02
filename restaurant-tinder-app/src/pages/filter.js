@@ -41,7 +41,9 @@ class Filter extends React.Component {
             radius: '8046.72',
             username: document.cookie,
             time: '',
-            isOpen: false
+            isOpen: false,
+            isError: false,
+            triedSubmitting: false
         };
     
         this.handleChange = this.handleChange.bind(this);
@@ -74,36 +76,7 @@ class Filter extends React.Component {
         navigator.geolocation.getCurrentPosition(success, error);
     }
 
-    handleChange(event) {
-        let key = event.target.name;
-        // this.setState({key: event.target.value});
-        this.setState({
-            [key]: event.target.value
-        });
-        return;
-    }
-
-    handleSlider = (value) => {
-        let miles = value * 0.25;
-        let meters = miles * 1609.34;
-        this.setState({
-            radius: meters
-        });
-    }
-
-    handlecategories = (value) => {
-        this.setState({
-            categories: value
-        })
-    }
-
-    handleSubmit(event) {
-
-        var jstring = JSON.stringify(this.state);
-        this.setState({
-            username: document.cookie
-        })
-        axios.post("http://localhost:3001/record/Filter/",this.state)
+    getFilter() {
         const filter = {
             name: this.state.name,
             location: this.state.location,
@@ -115,6 +88,56 @@ class Filter extends React.Component {
             radius: this.state.radius,
             username: this.state.username,
         }
+        return filter;
+    }
+
+    handleChange(event) {
+        let key = event.target.name;
+        // this.setState({key: event.target.value});
+        this.setState({
+            [key]: event.target.value
+        });
+        this.props.setFilterValue(this.getFilter());
+    }
+
+    handleSlider = (value) => {
+        let miles = value * 0.25;
+        let meters = miles * 1609.34;
+        this.setState({
+            radius: meters
+        });
+        this.props.setFilterValue(this.getFilter());
+    }
+
+    handlecategories = (value) => {
+        this.setState({
+            categories: value
+        })
+        this.props.setFilterValue(this.getFilter());
+    }
+
+    handleError(event) {
+        this.setState({
+            isError: true
+        })
+    }
+
+    handleSubmit(event) {
+
+        var jstring = JSON.stringify(this.state);
+
+
+        if (!this.state.location && (!this.state.longitude || !this.state.latitude)) {
+            //
+        }
+
+
+        this.setState({
+            username: document.cookie,
+            triedSubmitting: true,
+        })
+        axios.post("http://localhost:3001/record/Filter/",this.state)
+        const filter = this.getFilter();
         console.log('handleSubmit: ' + filter);
         this.props.setFilterValue(filter);
         // event.preventDefault();
@@ -351,16 +374,29 @@ class Filter extends React.Component {
                                 </section>
                             </div>
                         </div>
-
-                        {<Link to="/rest_card" variant="primary" onClick={this.handleSubmit}>Find food</Link>}
+                        {   
+                            ((!this.state.location && (!this.state.longitude || !this.state.latitude) || !this.state.name) && this.state.triedSubmitting) ?
+                            <div style={{color: 'red'}}>oops error</div> :
+                            <div></div>
+                        }
+                        {
+                        (!this.state.location && (!this.state.longitude || !this.state.latitude) || !this.state.name) ? 
+                        <Link to="/filter" className="disabledCursor" variant="primary" onClick={this.handleSubmit}>Find food</Link> :
+                        <Link to="/rest_card" className="notDisabled" variant="primary" onClick={this.handleSubmit}>Find food</Link>
+                        }
                         {/*<input type="submit" value="Submit" />*/}
+                        {
+                        // (!this.state.location && (!this.state.longitude || !this.state.latitude) && !this.state.name) ? 
+                        // <input type="submit" value="Submit" /> :
+                        // <button onClick={this.handleError}></button>
+                        }
                     </form>
                 </div>
                 </div>
                     </div>
                     </Overlay>
 
-            
+
                     <FilterList setFilterValue={this.props.setFilterValue}/>
                     <br/>
                     {CreateFilterProfile}
