@@ -6,11 +6,11 @@
 A restaurant-matching web application that helps users find restaurants. Scramble! allows users to input their preferred cuisine, location, price, and other preferences, which will be saved as a "filter profile." From this "filter profile," users can either approve or disapprove each restaurant (one at a time) and see more in depth information about each restaurant. Users can also make notes about orders for their approved, or liked, restaurants.
 
 ## Members
-- Dioscuri
-- ezhang6811
-- ItsTim2001
-- kgoeltner
-- rudyorre
+- Kelly Yang, [Dioscuri](https://github.com/Dioscuri)
+- Eric Zhang, [ezhang6811](https://github.com/ezhang6811)
+- Tim Lee, [ItsTim2001](https://github.com/ItsTim2001)
+- Karl Goeltner, [kgoeltner](https://github.com/kgoeltner)
+- Rudy Orre, [rudyorre](https://github.com/rudyorre)
 
 ## Links
 - [Project Tasks](https://github.com/rudyorre/restaurant-tinder/projects/1?add_cards_query=is%3Aopen)
