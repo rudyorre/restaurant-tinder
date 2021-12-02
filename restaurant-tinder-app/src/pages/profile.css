@@ -28,5 +28,25 @@
     background-color: white !important;
     color: #FE4501 !important;
     border-color: #FE4501 !important;
+}
+
+.logout-button:hover{
+    color: #FE4501 !important;
+    background-color: white !important;
+    border-color: #FE4501 !important;
+}
+
+.logout-button:focus{
+    color: #FE4501 !important;
+    background-color: white !important;
+    border-color: #FE4501 !important;
+    box-shadow: 0 0 0 0.2rem #FE4501 !important;
 
 }
+
+.logout-button{
+    color: white !important;
+    background-color: #FE4501 !important;
+    border-color: #FE4501 !important;
+}
+
