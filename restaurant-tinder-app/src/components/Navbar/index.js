@@ -4,10 +4,7 @@ import {
     Nav,
     NavLogo,
     NavLink,
-    Bars,
     NavMenu,
-    NavBtn,
-    NavBtnLink,
 } from "./NavbarElements";
 
 import app_logo from '../../images/app_logo.png';
@@ -34,8 +31,6 @@ const Navbar = (props) => {
                 SCRAMBLE!
             </NavLogo>
             
-            <Bars />
-
             <NavMenu>
                 <NavLink to="/about" activestyle='true'>
                     About
