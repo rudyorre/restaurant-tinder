@@ -23,3 +23,21 @@ input[type="radio"]{
 .likeDislikeLabel {
     margin-left: -5px;
 }
+
+.restaurantsTitle {
+    display: inline;
+    margin-left: auto;
+    margin-right: auto;
+}
+
+.eggQuestion {
+    display: flex;
+    margin-left: auto;
+    margin-right: auto;
+    width: 250px;
+}
+
+.errorLabel {
+    display: flex;
+    text-align: center;
+}
